@@ -1,15 +1,25 @@
-import * as customerQuery from './CustomerQuery';
-import * as customerTransform from './CustomerTransform';
-import pool from '../../config/database';
+import * as customerTransform from '../Util/Transformers/CustomerTransform';
+import * as customerDAO from './CustomerDAO';
 
+export const searchCustomer = async () => {
+    const result = await customerDAO.searchOperation();
+    let arrResult = [];
 
-exports.simpleSearch = () => {
+    for(let i = 0; result.length > i; i++) {
+        const transform = customerTransform.selectTransform(result[i]);
+        arrResult.push(transform);
+    }
 
+    return arrResult;
 }
 
 export const insertNewCustomer = async (payload) => {
-    console.log(joi);
-    const newPayload = customerTransform.createTransform(payload);
-    const result = await pool.query(customerQuery.INSERT_QUERY, [newPayload]);
-    return result.insertId;
+    const payloadReloaded = customerTransform.createTransform(payload);
+    const result = await customerDAO.insertOperation(payloadReloaded);
+    return result;
+}
+
+export const disabledCustomer = async (customerId) => {
+    const result = await customerDAO.disabledOperation(customerId);
+    return result;
 }
