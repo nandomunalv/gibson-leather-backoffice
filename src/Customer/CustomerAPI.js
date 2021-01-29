@@ -4,10 +4,15 @@ import * as customerService from './CustomerService';
 const router = Router();
 
 router.get('/customers', (req, res) => {
-
+    res.send({message: 'Ok'})
 });
 
 router.post('/customers', (req, res) => {
+    const {payload} = req.body;
+
+    console.log(payload)
+
+    customerService.insertNewCustomer(payload);
 
 });
 
