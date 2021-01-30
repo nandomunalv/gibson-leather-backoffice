@@ -1,4 +1,4 @@
-export const createTransform = (payload) => {
+export const dbStructureTransform = (payload) => {
     return {
         document_type: payload.documentType,
         document_number: payload.documentNumber,

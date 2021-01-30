@@ -1,13 +1,10 @@
-
 export const INSERT_QUERY = 'INSERT INTO glb_mst_customers SET ?';
 
 export const SEARCH_SIMPLE_QUERY = 'SELECT * FROM glb_mst_customers';
 
-// TODO: Que campos deben ser considerados
 export const UPDATE_QUERY = 'UPDATE glb_mst_customers SET ? WHERE customer_id = ?';
 
 export const DISABLED_QUERY = 'UPDATE glb_mst_customers SET enabled = 0 WHERE customer_id = ?';
-
 
 /*
 document_type

@@ -1,5 +1,4 @@
 import {Router} from 'express'
-import { restart } from 'nodemon';
 import * as customerService from './CustomerService';
 
 const router = Router();
@@ -16,8 +15,12 @@ router.post('/customers', async (req, res) => {
     res.send({customerId: result, message: 'Cliente creado correctamente'}).status(201);
 });
 
-router.put('/customers/:id', (req, res) => {
+router.put('/customers/:id', async (req, res) => {
+    const {id} = req.params;
+    const {payload} = req.body;
+    const result = await customerService.updatedCustomerData(id, payload);
 
+    result ? res.status(200).send({message: 'Información del cliente actualizada'}) : res.status(204).send();
 });
 
 router.delete('/customers/:id', async (req, res) => {

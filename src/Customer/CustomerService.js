@@ -14,12 +14,15 @@ export const searchCustomer = async () => {
 }
 
 export const insertNewCustomer = async (payload) => {
-    const payloadReloaded = customerTransform.createTransform(payload);
-    const result = await customerDAO.insertOperation(payloadReloaded);
-    return result;
+    const payloadReloaded = customerTransform.dbStructureTransform(payload);
+    return await customerDAO.insertOperation(payloadReloaded);
+}
+
+export const updatedCustomerData = async (customerId, payload) => {
+    const payloadReloaded = customerTransform.dbStructureTransform(payload);
+    return await customerDAO.updateOperation(customerId, payloadReloaded);
 }
 
 export const disabledCustomer = async (customerId) => {
-    const result = await customerDAO.disabledOperation(customerId);
-    return result;
+    return await customerDAO.disabledOperation(customerId);
 }
