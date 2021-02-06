@@ -8,13 +8,18 @@ export const searchOperation = async () => {
 }
 
 export const insertOperation = async (data) => {
-    const dbResult = await pool.query(INSERT_QUERY, [data]);
-    return dbResult.insertId;
+    return pool.query(INSERT_QUERY, [data], (err, dbResult) => {
+        if(err) {
+            return {insertId: 0, message: 'Ocurrió un error. Asegurate de tener los datos completos'};
+        } else {
+            return {insertId: dbResult.insertId, message: 'Cliente creado correctamente.'};
+        }
+    });
 }
 
 export const updateOperation = async (customerId, data) => {
     const dbResult = await pool.query(UPDATE_QUERY, [data, customerId]);
-    return dbResult.changedRows;
+    return dbResult.changedRows; 
 }
 
 export const disabledOperation = async (customerId) => {
