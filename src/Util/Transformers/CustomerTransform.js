@@ -1,6 +1,6 @@
 export const dbStructureTransform = (payload) => {
     return {
-        document_type: payload.documentType,
+        document_type: payload.documentType === '' ? null : payload.documentType,
         document_number: payload.documentNumber,
         name: payload.name,
         last_name: payload.lastName,

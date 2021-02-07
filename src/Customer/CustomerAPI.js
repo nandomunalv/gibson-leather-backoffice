@@ -5,7 +5,15 @@ const router = Router();
 
 router.get('/add', (req, res) => {
     res.render('customer/add');
-})
+});
+
+router.get('/list', (req, res) => {
+    res.render('customer/list');
+});
+
+router.get('/edit', (req, res) => {
+    res.render('customer/edit');
+});
 
 router.get('/api/customers', async (req, res) => {
     const result = await customerService.searchCustomer();
@@ -13,22 +21,8 @@ router.get('/api/customers', async (req, res) => {
 });
 
 router.post('/api/customers', async (req, res) => {
-
     const payload = req.body;
-    // payload.documentType = null;
-    // let result = 0;
-    // customerService.insertNewCustomer(payload)
-    // .then((response) => {
-    //     result = response;
-    //     req.flash('successMessage', `Cliente creado correctamente. Id: ${result}`)
-    //     res.redirect('/customers/add');
-    // })
-    // .catch(err => {
-    //     console.log(err);
-    //     req.flash('errorMessage', `Ocurrió un error`);
-    // });
     const result = await customerService.insertNewCustomer(payload);
-    console.log(result);
 
     result.insertId ? req.flash('successMessage', result.message) : req.flash('errorMessage', result.message);
     res.redirect('/customers/add');
@@ -36,7 +30,7 @@ router.post('/api/customers', async (req, res) => {
 
 router.put('/api/customers/:id', async (req, res) => {
     const { id } = req.params;
-    const { payload } = req.body;
+    const payload = req.body;
     const result = await customerService.updatedCustomerData(id, payload);
 
     result ? res.status(200).send({ message: 'Información del cliente actualizada' }) : res.status(204).send();

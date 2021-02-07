@@ -8,13 +8,8 @@ export const searchOperation = async () => {
 }
 
 export const insertOperation = async (data) => {
-    return pool.query(INSERT_QUERY, [data], (err, dbResult) => {
-        if(err) {
-            return {insertId: 0, message: 'Ocurrió un error. Asegurate de tener los datos completos'};
-        } else {
-            return {insertId: dbResult.insertId, message: 'Cliente creado correctamente.'};
-        }
-    });
+    const dbResult = await pool.query(INSERT_QUERY, [data]);
+    return dbResult;
 }
 
 export const updateOperation = async (customerId, data) => {

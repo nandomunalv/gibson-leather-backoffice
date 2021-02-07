@@ -11,7 +11,6 @@ import productAPI from './src/Products/ProductAPI';
 const app = express();
 
 // Settings
-console.log(path.join(__dirname, 'src/Views'));
 app.set('views', path.join(__dirname, 'src/Views'));
 app.engine('.hbs', exphbs({
     defaultLayout: 'main',
