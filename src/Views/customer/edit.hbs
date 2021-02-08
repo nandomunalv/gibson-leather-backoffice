@@ -1,0 +1,129 @@
+<div class="mt-2 mb-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Editar Cliente</h1>
+        </div>
+    </div>
+    <form action="/customers/api/customers-edit/{{customer.customerId}}" method="POST">
+        <p class="fst-italic">Los campos con * son olbigatorios</p>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="documentTypeInput" class="form-label">Tipo de Documento <strong>*</strong></label>
+                    <input type="text" name="documentType" class="form-control" id="documentTypeInput"
+                        placeholder="Ejm: DNI/RUC" value="{{customer.documentType}}">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="documentNumberInput" class="form-label">Nro de Documento <strong>*</strong></label>
+                    <input type="text" name="documentNumber" class="form-control" id="documentNumberInput"
+                        placeholder="Ejm: 75847753" value="{{customer.documentNumber}}">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="nameInput" class="form-label">Nombres <strong>*</strong></label>
+                    <input type="text" name="name" class="form-control" id="nameInput" placeholder="Ejm: Jhon"
+                        value="{{customer.name}}">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="lastNameInput" class="form-label">Apellidos <strong>*</strong></label>
+                    <input type="text" name="lastName" class="form-control" id="lastNameInput" placeholder="Ejm: Doe"
+                        value="{{customer.lastName}}">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="emailInput" class="form-label">Correo Electrónico</label>
+                    <input type="email" name="email" class="form-control" id="emailInput"
+                        placeholder="Ejm: hola@hotmail.com" value="{{customer.email}}">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="phoneNumberInput" class="form-label">Telefono/Celular <strong>*</strong></label>
+                    <input type="text" name="phoneNumber" class="form-control" id="phoneNumberInput"
+                        placeholder="Ejm: 925697495" value="{{customer.phoneNumber}}">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mb-3">
+                    <label for="mainAddressInput" class="form-label">Dirección <strong>*</strong></label>
+                    <input type="text" name="mainAddress" class="form-control" id="mainAddressInput"
+                        placeholder="Ejm: Avenida Ramón Carcamo 785" value="{{customer.mainAddress}}">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="referenceAddressInput" class="form-label">Referencia <strong>*</strong></label>
+                    <input type="text" name="referenceAddress" class="form-control" id="referenceAddressInput"
+                        placeholder="Ejm: Cruce con Avenida San Pablo 321" value="{{customer.referenceAddress}}">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="referenceOlvaCourierInput" class="form-label">Referencia Olva Courier</label>
+                    <input type="text" name="referenceOlvaCourier" class="form-control" id="referenceOlvaCourierInput"
+                        placeholder="Ejm: Olva de Jirón de al Unión" value="{{customer.referenceOlvaCourier}}">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <label for="ubigeoCountryDropdown" class="form-label">País</label>
+                    <input type="text" name="ubigeoCountry" class="form-control" id="ubigeoCountryDropdown"
+                        placeholder="Ejm: Perú" value="{{customer.ubigeoCountry}}">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <label for="ubigeoDepartmentDropdown" class="form-label">Departamento</label>
+                    <input type="text" name="ubigeoDepartment" class="form-control" id="ubigeoDepartmentDropdown"
+                        placeholder="Ejm: Lima" value="{{customer.ubigeoDepartment}}">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <label for="ubigeoProvinceDropdown" class="form-label">Provincia</label>
+                    <input type="text" name="ubigeoProvince" class="form-control" id="ubigeoProvinceDropdown"
+                        placeholder="Ejm: Lima" value="{{customer.ubigeoProvince}}">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Distrito</label>
+                    <input type="text" name="ubigeoDistrict" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Ejm: Lima" value="{{customer.ubigeoDistrict}}">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-3"></div>
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary" type="submit">Editar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

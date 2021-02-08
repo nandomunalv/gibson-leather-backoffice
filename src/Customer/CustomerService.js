@@ -13,15 +13,20 @@ export const searchCustomer = async () => {
     return arrResult;
 }
 
+export const searchOneCustomer = async (documentNumber) => {
+    const result = await customerDAO.searchOneOperation(documentNumber);
+    return transform.selectTransform(result[0]);;
+}
+
 export const insertNewCustomer = async (payload) => {
     const payloadReloaded = transform.dbStructureTransform(payload);
     let response = {}
     await customerDAO.insertOperation(payloadReloaded)
         .then((resp) => {
-            response = {insertId: resp.insertId, message: 'Cliente creado correctamente.'};
+            response = { insertId: resp.insertId, message: 'Cliente creado correctamente.' };
         })
         .catch((err) => {
-            response = { insertId: 0, message: 'Ocurrió un error. Asegurate de tener los datos completos' };
+            response = { insertId: 0, message: 'Ocurrió un error. Asegurate de tener los datos completos.' };
         });
     return response;
 
@@ -29,9 +34,25 @@ export const insertNewCustomer = async (payload) => {
 
 export const updatedCustomerData = async (customerId, payload) => {
     const payloadReloaded = transform.dbStructureTransform(payload);
-    return await customerDAO.updateOperation(customerId, payloadReloaded);
+    let response = {};
+    await customerDAO.updateOperation(customerId, payloadReloaded)
+        .then((resp) => {
+            response = { changedRows: resp.changedRows, message: 'Cliente actualizado correctamente.' };
+        })
+        .catch((err) => {
+            response = { changedRows: 0, message: 'Ocurrió un error. Asegurate de tener los datos completos.' }
+        });
+    return response;
 }
 
 export const disabledCustomer = async (customerId) => {
-    return await customerDAO.disabledOperation(customerId);
+    let response = {};
+    await customerDAO.disabledOperation(customerId)
+        .then((resp) => {
+            response = { changedRows: resp.changedRows, message: 'Clienete deshabilitado correctamente.' };
+        })
+        .catch((err) => {
+            response = { changedRows: 0, message: 'El cliente ya se encuentra deshabilitado.' }
+        })
+    return response;
 }

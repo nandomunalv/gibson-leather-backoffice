@@ -3,21 +3,25 @@ import * as customerService from './CustomerService';
 
 const router = Router();
 
+// TODO: Crear un archivo encargado de las rutas de la WEB.
+
+// WEB
 router.get('/add', (req, res) => {
     res.render('customer/add');
 });
 
-router.get('/list', (req, res) => {
-    res.render('customer/list');
+router.get('/edit/:documentNumber', async (req, res) => {
+    const {documentNumber} = req.params;
+    const result = await customerService.searchOneCustomer(documentNumber);
+
+    res.render('customer/edit', {customer: result});
 });
 
-router.get('/edit', (req, res) => {
-    res.render('customer/edit');
-});
+// API
 
-router.get('/api/customers', async (req, res) => {
+router.get('/list', async (req, res) => {
     const result = await customerService.searchCustomer();
-    res.status(200).send(result);
+    res.render('customer/list', {result});
 });
 
 router.post('/api/customers', async (req, res) => {
@@ -25,22 +29,24 @@ router.post('/api/customers', async (req, res) => {
     const result = await customerService.insertNewCustomer(payload);
 
     result.insertId ? req.flash('successMessage', result.message) : req.flash('errorMessage', result.message);
-    res.redirect('/customers/add');
+    res.redirect('/customers/list');
 });
 
-router.put('/api/customers/:id', async (req, res) => {
+router.post('/api/customers-edit/:id', async (req, res) => {
     const { id } = req.params;
     const payload = req.body;
     const result = await customerService.updatedCustomerData(id, payload);
 
-    result ? res.status(200).send({ message: 'Información del cliente actualizada' }) : res.status(204).send();
+    result.changedRows ? req.flash('successMessage', result.message) : req.flash('errorMessage', result.message);
+    res.redirect('/customers/list');
 });
 
-router.delete('/api/customers/:id', async (req, res) => {
+router.get('/api/customers-del/:id', async (req, res) => {
     const { id } = req.params;
     const result = await customerService.disabledCustomer(id);
 
-    result ? res.status(204).send() : res.status(400).send({ message: 'El usuario se encuentra deshabilitado' });
+    result.changedRows ? req.flash('successMessage', result.message) : req.flash('errorMessage', result.message);
+    res.redirect('/customers/list');
 });
 
 module.exports = router;

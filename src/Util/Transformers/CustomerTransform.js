@@ -1,12 +1,12 @@
 export const dbStructureTransform = (payload) => {
     return {
         document_type: payload.documentType === '' ? null : payload.documentType,
-        document_number: payload.documentNumber,
-        name: payload.name,
-        last_name: payload.lastName,
+        document_number: payload.documentNumber === '' ? null : payload.documentNumber,
+        name: payload.name === '' ? null : payload.name,
+        last_name: payload.lastName === '' ? null : payload.lastName,
         email: payload.email,
-        phone_number: payload.phoneNumber,
-        main_address: payload.mainAddress,
+        phone_number: payload.phoneNumber === '' ? null : payload.phoneNumber,
+        main_address: payload.mainAddress === '' ? null : payload.mainAddress,
         reference_address: payload.referenceAddress,
         reference_olva_courier: payload.referenceOlvaCourier,
         ubigeo_country: payload.ubigeoCountry,
@@ -19,6 +19,7 @@ export const dbStructureTransform = (payload) => {
 
 export const selectTransform = (payload) => {
     return {
+        customerId: payload.customer_id,
         documentType: payload.document_type,
         documentNumber: payload.document_number,
         name: payload.name,
