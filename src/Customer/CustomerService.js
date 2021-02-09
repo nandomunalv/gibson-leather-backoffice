@@ -15,7 +15,7 @@ export const searchCustomer = async () => {
 
 export const searchOneCustomer = async (documentNumber) => {
     const result = await customerDAO.searchOneOperation(documentNumber);
-    return transform.selectTransform(result[0]);;
+    return transform.selectTransform(result[0]);
 }
 
 export const insertNewCustomer = async (payload) => {
@@ -26,7 +26,7 @@ export const insertNewCustomer = async (payload) => {
             response = { insertId: resp.insertId, message: 'Cliente creado correctamente.' };
         })
         .catch((err) => {
-            response = { insertId: 0, message: 'Ocurrió un error. Asegurate de tener los datos completos.' };
+            response = { insertId: 0, message: 'Ocurrió un error. Asegúrate de tener los datos completos.' };
         });
     return response;
 
@@ -40,16 +40,16 @@ export const updatedCustomerData = async (customerId, payload) => {
             response = { changedRows: resp.changedRows, message: 'Cliente actualizado correctamente.' };
         })
         .catch((err) => {
-            response = { changedRows: 0, message: 'Ocurrió un error. Asegurate de tener los datos completos.' }
+            response = { changedRows: 0, message: 'Ocurrió un error. Asegúrate de tener los datos completos.' }
         });
     return response;
 }
 
-export const disabledCustomer = async (customerId) => {
+export const disableCustomer = async (customerId) => {
     let response = {};
-    await customerDAO.disabledOperation(customerId)
+    await customerDAO.disableOperation(customerId)
         .then((resp) => {
-            response = { changedRows: resp.changedRows, message: 'Clienete deshabilitado correctamente.' };
+            response = { changedRows: resp.changedRows, message: 'Cliente deshabilitado correctamente.' };
         })
         .catch((err) => {
             response = { changedRows: 0, message: 'El cliente ya se encuentra deshabilitado.' }
