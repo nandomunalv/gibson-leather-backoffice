@@ -3,6 +3,10 @@ import * as productService from './ProductService';
 
 const router = Router();
 
+// TODO:
+//  * Considerar la validación para el "errorMessage" al momento de crear o actualizar
+//  * Tomar como guía CustomerAPI.js
+
 router.post('/products', async (req, res) => {
     const {payload} = req.body;
     const result = await productService.insertNewProducto(payload);
