@@ -5,7 +5,8 @@ import {
     INSERT_QUERY,
     SEARCH_ONE_CLIENT_QUERY,
     SEARCH_SIMPLE_QUERY,
-    UPDATE_QUERY
+    UPDATE_QUERY,
+    SP_SEARCH_DYNAMIC_CUSTOMER
 } from './CustomerQuery';
 
 export const searchOperation = async () => {
@@ -14,6 +15,10 @@ export const searchOperation = async () => {
 
 export const searchOneOperation = async (documentNumber) => {
     return await pool.query(SEARCH_ONE_CLIENT_QUERY, [documentNumber]);
+}
+
+export const searchDynamicOperation = async (word) => {
+    return await pool.query(SP_SEARCH_DYNAMIC_CUSTOMER, [word]);
 }
 
 export const insertOperation = async (data) => {
