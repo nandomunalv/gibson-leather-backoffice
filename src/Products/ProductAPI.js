@@ -3,10 +3,9 @@ import * as productService from './ProductService';
 
 const router = Router();
 
-router.get('/products', async (req, res) => {
-    const result = await productService.searchProducts();
-    res.status(200).send(result);
-});
+// TODO:
+//  * Considerar la validación para el "errorMessage" al momento de crear o actualizar
+//  * Tomar como guía CustomerAPI.js
 
 router.post('/products', async (req, res) => {
     const {payload} = req.body;
@@ -15,7 +14,7 @@ router.post('/products', async (req, res) => {
     res.status(201).send({productId: result, message: 'Producto registrado.'});
 });
 
-router.put('/products/:id', async (req, res) => {
+router.post('/products/:id', async (req, res) => {
     const {id} = req.params;
     const {payload} = req.body;
     const result = await productService.updatedProductData(id, payload);
@@ -23,7 +22,7 @@ router.put('/products/:id', async (req, res) => {
     result ? res.status(200).send({message: 'Información del producto actualizada.'}) : res.status(204).send();
 });
 
-router.delete('/products/:id', async (req, res) => {
+router.get('/products/disable/:id', async (req, res) => {
 
 });
 

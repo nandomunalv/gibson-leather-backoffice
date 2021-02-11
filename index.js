@@ -3,8 +3,11 @@ import exphbs from 'express-handlebars';
 import path from 'path';
 
 import middlewares from './config/middlewares';
+import helpers from './src/Util/helpers';
 
+import customerWEB from './src/Customer/CustomerWEB';
 import customerAPI from './src/Customer/CustomerAPI';
+import productWEB from './src/Products/ProductWEB';
 import productAPI from './src/Products/ProductAPI';
 
 // Initialization
@@ -14,9 +17,10 @@ const app = express();
 app.set('views', path.join(__dirname, 'src/Views'));
 app.engine('.hbs', exphbs({
     defaultLayout: 'main',
-    layoutsDir:path.join(app.get('views'), 'layouts'),
+    layoutsDir: path.join(app.get('views'), 'layouts'),
     partialsDir: path.join(app.get('views'), 'partials'),
     extname: '.hbs',
+    helpers,
 }));
 app.set('view engine', '.hbs');
 
@@ -33,8 +37,10 @@ app.use((req, res, next) => {
 })
 
 // Routing
-app.use('/customers',customerAPI);
-app.use(productAPI);
+app.use('/customers', customerWEB);
+app.use('/customers/api', customerAPI);
+app.use('/products', productWEB);
+app.use('/products/api', productAPI);
 
 // RUN
 app.listen(process.env.PORT || 3000, () => {

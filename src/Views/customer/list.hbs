@@ -1,32 +1,38 @@
 <div class="mt-3 mb-5">
     <h1>Listado de Clientes</h1>
-    <div class="row">
-        <div class="col-md-9">
-            <div class="input-group mb-3 mt-3">
-                <input type="text" class="form-control" placeholder="Busca por número de documento, nombres o apellidos"
-                    aria-label="Busca por número de documento, nombres o apellidos" aria-describedby="button-addon2">
-                <button class="btn btn-primary" type="button" id="button-addon2"><i class="fa fa-search"
-                        aria-hidden="true"></i> Buscar</button>
+    <form action="/customers/list" method="get">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="input-group mb-3 mt-3">
+                    <input type="text" class="form-control"
+                           placeholder="Busca por número de documento, nombres o apellidos"
+                           aria-label="Busca por número de documento, nombres o apellidos"
+                           aria-describedby="button-addon2" name="searchValue">
+                    <button class="btn btn-primary" id="button-addon2" type="submit">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                        Buscar
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="d-grid gap-2 mb-3 mt-3">
+                    <a href="/customers/add" class="btn btn-primary">Nuevo Cliente</a>
+                </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="d-grid gap-2 mb-3 mt-3">
-                <a href="/customers/add" class="btn btn-primary">Nuevo Cliente</a>
-            </div>
-        </div>
-    </div>
+    </form>
     <table class="table table-striped">
         <thead>
-            <tr>
-                <th scope="col">Documento</th>
-                <th scope="col">Nombres</th>
-                <th scope="col">Apellidos</th>
-                <th scope="col">Teléfono/Celular</th>
-                <th scope="col">Opciones</th>
-            </tr>
+        <tr>
+            <th scope="col">Documento</th>
+            <th scope="col">Nombres</th>
+            <th scope="col">Apellidos</th>
+            <th scope="col">Teléfono/Celular</th>
+            <th scope="col">Opciones</th>
+        </tr>
         </thead>
         <tbody>
-            {{#each result}}
+        {{#each result}}
             <tr>
                 <th class="align-middle" scope="row">{{documentNumber}}</th>
                 <td class="align-middle">{{name}}</td>
@@ -34,12 +40,13 @@
                 <td class="align-middle">{{phoneNumber}}</td>
                 <td class="align-middle">
                     <a href="/customers/edit/{{documentNumber}}" class="btn btn-primary"><i class="fa fa-pencil"
-                            aria-hidden="true"></i></a>
-                    <a href="/customers/api/customers-del/{{customerId}}" class="btn btn-danger"><i class="fa fa-trash"
+                                                                                            aria-hidden="true"></i></a>
+                    <a href="/customers/api/customers/disable/{{customerId}}" class="btn btn-danger"><i
+                            class="fa fa-trash"
                             aria-hidden="true"></i></a>
                 </td>
             </tr>
-            {{/each}}
+        {{/each}}
         </tbody>
     </table>
 </div>
