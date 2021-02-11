@@ -4,21 +4,21 @@
             <h1>Editar Cliente</h1>
         </div>
     </div>
-    <form action="/customers/api/customers/{{customer.customerId}}" method="POST">
+    <form action="/customers/api/customers-edit/{{customer.customerId}}" method="POST">
         <p class="fst-italic">Los campos con * son olbigatorios</p>
         <div class="row mt-4">
             <div class="col-md-6">
                 <div class="mb-3">
-                    <label for="documentTypeInput" class="form-label">Tipo de Documento</label>
+                    <label for="documentTypeInput" class="form-label">Tipo de Documento <strong>*</strong></label>
                     <input type="text" name="documentType" class="form-control" id="documentTypeInput"
-                        placeholder="Ejm: DNI/RUC" value="{{customer.documentType}}" readonly>
+                        placeholder="Ejm: DNI/RUC" value="{{customer.documentType}}">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="mb-3">
-                    <label for="documentNumberInput" class="form-label">Nro de Documento</label>
+                    <label for="documentNumberInput" class="form-label">Nro de Documento <strong>*</strong></label>
                     <input type="text" name="documentNumber" class="form-control" id="documentNumberInput"
-                        placeholder="Ejm: 75847753" value="{{customer.documentNumber}}" readonly>
+                        placeholder="Ejm: 75847753" value="{{customer.documentNumber}}">
                 </div>
             </div>
         </div>
