@@ -3,19 +3,17 @@ import * as transform from '../Util/Transformers/CustomerTransform';
 
 export const searchCustomer = async () => {
     const result = await customerDAO.searchOperation();
-    let arrResult = [];
-
-    for (let i = 0; result.length > i; i++) {
-        const data = transform.selectTransform(result[i]);
-        arrResult.push(data);
-    }
-
-    return arrResult;
+    return arrValidation(0, result);
 }
 
 export const searchOneCustomer = async (documentNumber) => {
     const result = await customerDAO.searchOneOperation(documentNumber);
     return transform.selectTransform(result[0]);
+}
+
+export const searchDynamicCustomer = async (word) => {
+    const result = await customerDAO.searchDynamicOperation(word);
+    return arrValidation(1, result);
 }
 
 export const insertNewCustomer = async (payload) => {
@@ -55,4 +53,20 @@ export const disableCustomer = async (customerId) => {
             response = { changedRows: 0, message: 'El cliente ya se encuentra deshabilitado.' }
         })
     return response;
+}
+
+const arrValidation = (type, arr) => {
+    let newArr;
+    if (type) {
+        arr.pop()
+        newArr = arr[0];
+    } else {
+        newArr = arr;
+    }
+    let arrResponse = [];
+    for (let i = 0; newArr.length > i; i++) {
+        const data = transform.selectTransform(newArr[i]);
+        arrResponse.push(data);
+    }
+    return arrResponse;
 }

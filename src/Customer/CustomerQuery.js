@@ -8,6 +8,8 @@ export const DISABLED_QUERY = 'UPDATE glb_mst_customers SET enabled = 0 WHERE cu
 
 export const SEARCH_ONE_CLIENT_QUERY = 'SELECT * FROM glb_mst_customers WHERE document_number = ?';
 
+export const SP_SEARCH_DYNAMIC_CUSTOMER = 'CALL sp_get_dynamic_customer(?)';
+
 /*
 document_type
 document_number

@@ -9,7 +9,7 @@ router.post('/customers', async (req, res) => {
 
     if (result.insertId) {
         req.flash('successMessage', result.message);
-        res.redirect('/customers/list');
+        res.redirect('/customers/list?searchValue=');
     } else {
         req.flash('errorMessage', result.message);
         res.redirect('/customers/add');
@@ -21,9 +21,11 @@ router.post('/customers/:id', async (req, res) => {
     const payload = req.body;
     const result = await customerService.updatedCustomerData(id, payload);
 
+    // const isEqualsPayload = Object.is(JSON.stringify(payload), JSON.stringify(global.copyPayload));
+
     if (result.changedRows) {
         req.flash('successMessage', result.message);
-        res.redirect('/customers/list');
+        res.redirect('/customers/list?searchValue=');
     } else {
         req.flash('errorMessage', result.message);
         res.redirect(`/customers/edit/${payload.documentNumber}`);
@@ -35,7 +37,7 @@ router.get('/customers/disable/:id', async (req, res) => {
     const result = await customerService.disableCustomer(id);
 
     result.changedRows ? req.flash('successMessage', result.message) : req.flash('errorMessage', result.message);
-    res.redirect('/customers/list');
+    res.redirect('/customers/list?searchValue=');
 });
 
 module.exports = router;
