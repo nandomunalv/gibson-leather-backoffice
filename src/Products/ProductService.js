@@ -14,7 +14,7 @@ export const searchOneProduct = async (skuCode) => {
 export const searchDynamicProduct = async (word) => {
     const result = await productDAO.searchDynamicOperation(word);
     result.pop();
-    return searchResultValidator(result);
+    return searchResultValidator(result[0]);
 }
 
 export const insertNewProducto = async (payload) => {
@@ -27,7 +27,7 @@ export const insertNewProducto = async (payload) => {
     let response = {};
     await productDAO.insertOperation(payloadReloaded)
         .then((dbResp) => {
-            response = {insertId: dbResp.insertId, message: 'Producto creado correctamente'};
+            response = {insertId: dbResp.insertId, message: `Producto creado correctamente. SKU: ${SKU}`};
         })
         .catch(() => {
             response = {insertId: 0, message: 'Ocurrió un error. Asegúrate de tener los datos completos'};
@@ -40,7 +40,7 @@ export const updatedProductData = async (productId, payload) => {
     let response = {};
     await productDAO.updateOperation(payloadReloaded, productId)
         .then((dbResp) => {
-            response = {changedRows: resp. changedRows, message: 'Producto actualizado correctamente'};
+            response = {changedRows: dbResp.changedRows, message: 'Producto actualizado correctamente'};
         })
         .catch(() => {
             response = {changedRows: 0, message: 'Ocurrió un error. Asegúrate de tener los datos completos'};

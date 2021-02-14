@@ -8,7 +8,7 @@ export const Q_UPDATE = 'UPDATE glb_mst_products SET ? WHERE product_id = ?';
 
 export const Q_DISABLED = 'UPDATE glb_mst_products SET enabled = 0 WHERE product_id = ?';
 
-export const SP_SEARCH_DYNAMIC_PRODUCTO = 'CALL';
+export const SP_SEARCH_DYNAMIC_PRODUCTO = 'CALL sp_get_dynamic_product(?)';
 
 /*
 product_id

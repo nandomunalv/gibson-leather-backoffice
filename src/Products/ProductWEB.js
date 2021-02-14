@@ -6,7 +6,6 @@ const router = Router();
 router.get('/list', async (req, res) => {
     let result;
     const {q} = req.query;
-
     if(!!q || q !== '') {
         result = await productService.searchDynamicProduct(q);
     } else {

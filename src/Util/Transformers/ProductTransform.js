@@ -1,6 +1,6 @@
 export const dbStructureTransform = (payload) => {
     return {
-        product_sku: '',
+        product_sku: payload.productSku,
         product_type: payload.productType === '' ? null : payload.productType,
         product_name: payload.productName === '' ? null : payload.productName,
         product_description: payload.productDescription === '' ? null : payload.productDescription,

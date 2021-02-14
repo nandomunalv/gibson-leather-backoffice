@@ -1,71 +1,44 @@
 <div class="mt-2 mb-5">
     <div class="row">
         <div class="col-md-12">
-            <h1>Nuevo Cliente</h1>
+            <h1>Nuevo Producto</h1>
         </div>
     </div>
-    <form>
+    <form action="/products/api/products" method="POST">
         <p class="fst-italic">Los campos con * son olbigatorios</p>
-        <div style="border: 1px solid black" class="row mt-4">
+        <input type="text" name="productSku" class="form-control" value="" readonly hidden>
+        <div class="row mt-4">
             <div class="col-md-6">
                 <div class="mb-3">
-                    <label for="documentTypeInput" class="form-label">Tipo de Documento <strong>*</strong></label>
-                    <input type="text" name="documentType" class="form-control" id="documentTypeInput"
-                           placeholder="Ejm: DNI/RUC">
+                    <label for="productTypeInput" class="form-label">Tipo de Producto <strong>*</strong></label>
+                    <input type="text" name="productType" class="form-control" id="productTypeInput"
+                           placeholder="Ejm: Billetera">
                 </div>
-            </div>
-            <div class="col-md-3">
                 <div class="mb-3">
-                    <img src="https://dummyimage.com/200x200/000/fff.jpg" class="rounded img-thumbnail" alt="...">
+                    <label for="productNameInput" class="form-label">Nombre Comercial <strong>*</strong></label>
+                    <input type="text" name="productName" class="form-control" id="productNameInput"
+                           placeholder="...">
                 </div>
-            </div>
-            <div class="col-md-3">
                 <div class="mb-3">
-                    <label for="documentTypeInput" class="form-label">Tipo de Documento <strong>*</strong></label>
-                    <input type="text" name="documentType" class="form-control" id="documentTypeInput"
-                           placeholder="Ejm: DNI/RUC">
+                    <label for="productDescriptionInput" class="form-label">Descripción <strong>*</strong></label>
+                    <input type="text" name="productDescription" class="form-control" id="productDescriptionInput"
+                           placeholder="...">
                 </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
                 <div class="mb-3">
-                    <label for="nameInput" class="form-label">Nombres <strong>*</strong></label>
-                    <input type="text" name="name" class="form-control" id="nameInput" placeholder="Ejm: Jhon">
+                    <label for="productDetailInput" class="form-label">Detalles <strong>*</strong></label>
+                    <input type="text" name="productDetails" class="form-control" id="productDetailInput"
+                           placeholder="...">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="mb-3">
-                    <label for="lastNameInput" class="form-label">Apellidos <strong>*</strong></label>
-                    <input type="text" name="lastName" class="form-control" id="lastNameInput" placeholder="Ejm: Doe">
+                    <img src="https://dummyimage.com/250x250/000/fff.jpg" class="rounded mx-auto d-block" alt="...">
                 </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
                 <div class="mb-3">
-                    <label for="emailInput" class="form-label">Correo Electrónico</label>
-                    <input type="email" name="email" class="form-control" id="emailInput"
-                           placeholder="Ejm: hola@hotmail.com">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="phoneNumberInput" class="form-label">Telefono/Celular <strong>*</strong></label>
-                    <input type="text" name="phoneNumber" class="form-control" id="phoneNumberInput"
-                           placeholder="Ejm: 925697495">
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="mb-3">
-                    <label for="mainAddressInput" class="form-label">Dirección <strong>*</strong></label>
-                    <input type="text" name="mainAddress" class="form-control" id="mainAddressInput"
-                           placeholder="Ejm: Avenida Ramón Carcamo 785">
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <button class="btn btn-primary" type="button">Subir imagen</button>
+                        <button class="btn btn-danger" type="button">Eliminar</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -73,29 +46,29 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="mb-3">
-                    <label for="ubigeoCountryDropdown" class="form-label">Color</label>
-                    <input type="text" name="ubigeoCountry" class="form-control" id="ubigeoCountryDropdown"
+                    <label for="productColorInput" class="form-label">Color</label>
+                    <input type="text" name="productColor" class="form-control" id="productColorInput"
                            placeholder="Ejm: Marrón">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="mb-3">
-                    <label for="ubigeoDepartmentDropdown" class="form-label">Género</label>
-                    <input type="text" name="ubigeoDepartment" class="form-control" id="ubigeoDepartmentDropdown"
+                    <label for="productGenderInput" class="form-label">Género</label>
+                    <input type="text" name="productGender" class="form-control" id="productGenderInput"
                            placeholder="Ejm: Unisex">
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="mb-3">
-                    <label for="ubigeoProvinceDropdown" class="form-label">Precio S/.</label>
-                    <input type="text" name="ubigeoProvince" class="form-control" id="ubigeoProvinceDropdown"
-                           placeholder="Ejm: 125">
+                <label for="productPriceInput" class="form-label">Precio</label>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text">S/.</span>
+                    <input type="number" name="productPrice" class="form-control" aria-label="Precio en soles" placeholder="Ejm: 125" id="productPriceInput">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Stock</label>
-                    <input type="text" name="ubigeoDistrict" class="form-control" id="exampleFormControlInput1"
+                    <label for="productStockInput" class="form-label">Stock</label>
+                    <input type="number" name="productStock" class="form-control" id="productStockInput"
                            placeholder="Ejm: 15">
                 </div>
             </div>
@@ -104,31 +77,31 @@
 
         <div class="row">
             <div class="col-md-3">
-                <div class="mb-3">
-                    <label for="ubigeoCountryDropdown" class="form-label">Ancho en cm</label>
-                    <input type="text" name="ubigeoCountry" class="form-control" id="ubigeoCountryDropdown"
-                           placeholder="Ejm: 15">
+                <label for="productWidthInput" class="form-label">Ancho</label>
+                <div class="mb-3 input-group">
+                    <input type="number" name="productWidth" class="form-control" aria-label="Ancho del producto en centímetos" id="productWidthInput">
+                    <span class="input-group-text">cm</span>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="mb-3">
-                    <label for="ubigeoDepartmentDropdown" class="form-label">Largo en cm</label>
-                    <input type="text" name="ubigeoDepartment" class="form-control" id="ubigeoDepartmentDropdown"
-                           placeholder="Ejm: 15">
+                <label for="productLongInput" class="form-label">Largo</label>
+                <div class="mb-3 input-group">
+                    <input type="number" name="productLong" class="form-control" aria-label="Largo del producto en centímetos" id="productLongInput">
+                    <span class="input-group-text">cm</span>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="mb-3">
-                    <label for="ubigeoProvinceDropdown" class="form-label">Alto en cm</label>
-                    <input type="text" name="ubigeoProvince" class="form-control" id="ubigeoProvinceDropdown"
-                           placeholder="Ejm: 15">
+                <label for="productHighInput" class="form-label">Alto</label>
+                <div class="mb-3 input-group">
+                    <input type="number" name="productHigh" class="form-control" aria-label="Alto del producto en centímetros" id="productHighInput">
+                    <span class="input-group-text">cm</span>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Peso Kg.</label>
-                    <input type="text" name="ubigeoDistrict" class="form-control" id="exampleFormControlInput1"
-                           placeholder="Ejm: 1">
+                <label for="productWeightInput" class="form-label">Peso</label>
+                <div class="mb-3 input-group">
+                    <input type="number" name="productWeight" class="form-control" aria-label="Peso del producto en kilogramos" id="productWeightInput">
+                    <span class="input-group-text">kg</span>
                 </div>
             </div>
         </div>
