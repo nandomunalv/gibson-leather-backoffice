@@ -21,8 +21,6 @@ router.post('/customers/:id', async (req, res) => {
     const payload = req.body;
     const result = await customerService.updatedCustomerData(id, payload);
 
-    // const isEqualsPayload = Object.is(JSON.stringify(payload), JSON.stringify(global.copyPayload));
-
     if (result.changedRows) {
         req.flash('successMessage', result.message);
         res.redirect('/customers/list?searchValue=');

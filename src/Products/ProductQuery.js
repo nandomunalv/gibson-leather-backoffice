@@ -1,11 +1,14 @@
-export const INSERT_QUERY = 'INSERT INTO glb_mst_products SET ?';
+export const Q_SEARCH_ALL = 'SELECT * FROM glb_mst_products WHERE enabled = 1 LIMIT 15';
 
-export const SEARCH_SIMPLE_QUERY = 'SELECT * FROM glb_mst_products';
+export const Q_SEARCH_ONE = 'SELECT * FROM glb_mst_products WHERE product_sku = ?';
 
-export const UPDATE_QUERY = 'UPDATE glb_mst_products SET ? WHERE product_id = ?';
+export const Q_INSERT = 'INSERT INTO glb_mst_products SET ?';
 
-// TODO: Pensar si neceista la desactivación del producto o se desactive cuando no haya stock
-export const DISABLED_QUERY = 'UPDATE glb_mst_products SET enabled = 0 WHERE product_id = ?';
+export const Q_UPDATE = 'UPDATE glb_mst_products SET ? WHERE product_id = ?';
+
+export const Q_DISABLED = 'UPDATE glb_mst_products SET enabled = 0 WHERE product_id = ?';
+
+export const SP_SEARCH_DYNAMIC_PRODUCTO = 'CALL';
 
 /*
 product_id

@@ -1,18 +1,23 @@
 import pool from '../../config/database';
 
-import {SEARCH_SIMPLE_QUERY, INSERT_QUERY, UPDATE_QUERY} from './ProductQuery';
+import {Q_INSERT, Q_SEARCH_ALL, Q_SEARCH_ONE, Q_UPDATE, SP_SEARCH_DYNAMIC_PRODUCTO} from './ProductQuery';
 
 export const searchOperation = async () => {
-    const dbResponse = await pool.query(SEARCH_SIMPLE_QUERY);
-    return dbResponse;
+    return await pool.query(Q_SEARCH_ALL);
+}
+
+export const searchOneOperation = async (sku) => {
+    return await pool.query(Q_SEARCH_ONE, [sku])
+}
+
+export const searchDynamicOperation = async (word) => {
+    return await pool.query(SP_SEARCH_DYNAMIC_PRODUCTO, [word]);
 }
 
 export const insertOperation = async (data) => {
-    const dbResponse = await pool.query(INSERT_QUERY, [data]);
-    return dbResponse.insertId;
+    return await pool.query(Q_INSERT, [data]);
 }
 
 export const updateOperation = async (data, productId) => {
-    const dbResponse = await pool.query(UPDATE_QUERY, [data, productId]);
-    return dbResponse.changedRows;
+    return await pool.query(Q_UPDATE, [data, productId]);
 }

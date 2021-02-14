@@ -1,6 +1,5 @@
 import {Router} from 'express';
 import * as customerService from './CustomerService';
-import helpers from '../Util/helpers';
 
 const router = Router();
 
@@ -24,9 +23,6 @@ router.get('/add', (req, res) => {
 router.get('/edit/:documentNumber', async (req, res) => {
     const {documentNumber} = req.params;
     const result = await customerService.searchOneCustomer(documentNumber);
-    const copyPayload = {...result};
-    delete copyPayload.customerId;
-    global.copyPayload = copyPayload;
     res.render('customer/edit', {customer: result});
 });
 
