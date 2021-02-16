@@ -1,4 +1,5 @@
 import {Router} from 'express';
+import upload from '../../config/multer';
 import * as productService from './ProductService';
 
 const router = Router();
@@ -29,6 +30,13 @@ router.post('/products/:id', async (req, res) => {
         res.redirect(`/products/edit/${payload.productSku}`);
     }
 });
+
+router.put('/products/upload', upload.single('formFile') ,async (req, res) => {
+    let uploadedFile = req.file.fieldname;
+    if (uploadedFile) {
+        res.json("file uploaded successfully")
+    }
+})
 
 
 module.exports = router;
