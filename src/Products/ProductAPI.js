@@ -1,5 +1,6 @@
 import {Router} from 'express';
 import upload from '../../config/multer';
+import * as imagemin from '../../config/imagemin';
 import * as productService from './ProductService';
 
 const router = Router();
@@ -32,7 +33,13 @@ router.post('/products/:id', async (req, res) => {
 });
 
 router.put('/products/upload', upload.single('formFile') ,async (req, res) => {
+    
     let uploadedFile = req.file.fieldname;
+
+    await imagemin.compress().then((val) => {
+        console.log('Paso algo aquí',val)
+    });
+
     if (uploadedFile) {
         res.json("file uploaded successfully")
     }
