@@ -2,6 +2,7 @@ import {Router} from 'express';
 import upload from '../../config/multer';
 import * as imagemin from '../../config/imagemin';
 import * as productService from './ProductService';
+import * as imgUtil from '../Util/image';
 
 const router = Router();
 
@@ -32,18 +33,19 @@ router.post('/products/:id', async (req, res) => {
     }
 });
 
-router.put('/products/upload', upload.single('formFile') ,async (req, res) => {
-    
+router.put('/products/upload', upload.single('formFile') ,async (req, res) => {    
     let uploadedFile = req.file.fieldname;
 
-    await imagemin.compress().then((val) => {
-        console.log('Paso algo aquí',val)
+    await imagemin.compress(req.file.filename).then((val) => {    
+        console.log(`Image compressed from "${val[0].sourcePath}" to "${val[0].destinationPath}"`);
     });
 
-    if (uploadedFile) {
-        res.json("file uploaded successfully")
-    }
-})
+    imgUtil.removeTmpImage(req.file.filename, req.file.destination);
+    imgUtil.removeCompressImage(req.file.filename);
 
+    if (uploadedFile) {
+        res.json("file uploaded successfully");
+    }
+});
 
 module.exports = router;
