@@ -1,16 +1,21 @@
 import {Router} from 'express';
 import upload from '../../config/multer';
-import * as imagemin from '../../config/imagemin';
 import * as productService from './ProductService';
 import * as imgUtil from '../Util/image';
 
 const router = Router();
 
-router.post('/products', async (req, res) => {
+router.post('/products', upload.single('sampleFile'), async (req, res) => {
     const payload = req.body;
+
+    payload.productImgName = req.file.filename;
+    payload.productImgUrl = `/img/components/products/${req.file.filename}`;
+
     const result = await productService.insertNewProducto(payload);
 
     if (result.insertId) {
+        await imgUtil.transferImage(req.file.filename, req.file.destination);
+
         req.flash('successMessage', result.message);
         res.redirect('/products/list?q=');
     } else {
@@ -33,18 +38,15 @@ router.post('/products/:id', async (req, res) => {
     }
 });
 
-router.put('/products/upload', upload.single('formFile') ,async (req, res) => {    
+router.put('/products/upload', upload.single('formFile') ,async (req, res) => {
     let uploadedFile = req.file.fieldname;
 
-    await imagemin.compress(req.file.filename).then((val) => {    
-        console.log(`Image compressed from "${val[0].sourcePath}" to "${val[0].destinationPath}"`);
-    });
+    console.log('>> FILE:', req.file);
 
-    imgUtil.removeTmpImage(req.file.filename, req.file.destination);
-    imgUtil.removeCompressImage(req.file.filename);
+    await imgUtil.transferImage(req.file.filename, req.file.destination);
 
     if (uploadedFile) {
-        res.json("file uploaded successfully");
+        res.json("File uploaded successfully");
     }
 });
 

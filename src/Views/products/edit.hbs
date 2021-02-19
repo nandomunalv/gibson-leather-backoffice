@@ -6,11 +6,12 @@
     </div>
     <form action="/products/api/products/{{product.productId}}" method="POST">
         <p class="fst-italic">Los campos con * son olbigatorios</p>
-        <div class="row mt-4">
+        <div style="border: 1px solid black" class="row mt-4">
             <div class="col-md-6">
                 <div class="mb-3">
                     <label for="productSkuInput" class="form-label">SKU</label>
-                    <input type="text" name="productSku" class="form-control" id="productSkuInput" value="{{product.productSku}}" readonly>
+                    <input type="text" name="productSku" class="form-control" id="productSkuInput"
+                           value="{{product.productSku}}" readonly>
                 </div>
                 <div class="mb-3">
                     <label for="productTypeInput" class="form-label">Tipo de Producto <strong>*</strong></label>
@@ -33,13 +34,20 @@
                            placeholder="..." value="{{product.productDetails}}">
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <img src="https://dummyimage.com/250x250/000/fff.jpg" class="rounded mx-auto d-block" alt="...">
+            <div class="col-md-4">
+                <div class="mt-2 mt-4">
+                    {{#if product.productImgUrl}}
+                        <img src="{{product.productImgUrl}}" class="rounded mx-auto d-block" alt="..." width="250"
+                             height="250">
+                    {{else}}
+                        <img src="/img/default.png" class="rounded  d-block" alt="..." width="300" height="300">
+                    {{/if}}
                 </div>
+            </div>
+            <div class="col-md-2">
                 <div class="mb-3">
-                    <div class="d-grid gap-2 col-6 mx-auto">
-                        <button class="btn btn-primary" type="button">Subir imagen</button>
+                    <div class="d-grid gap-2 col-6 ">
+                        <input class="form-control" type="file" id="formFile" name="sampleFile">
                         <button class="btn btn-danger" type="button">Eliminar</button>
                     </div>
                 </div>
@@ -65,8 +73,9 @@
                 <label for="productPriceInput" class="form-label">Precio</label>
                 <div class="mb-3 input-group">
                     <span class="input-group-text">S/.</span>
-                    <input type="number" name="productPrice" class="form-control" aria-label="Precio en soles" placeholder="Ejm: 125" id="productPriceInput"
-                    value="{{product.productPrice}}">
+                    <input type="number" name="productPrice" class="form-control" aria-label="Precio en soles"
+                           placeholder="Ejm: 125" id="productPriceInput"
+                           value="{{product.productPrice}}">
                 </div>
             </div>
             <div class="col-md-3">
@@ -83,32 +92,36 @@
             <div class="col-md-3">
                 <label for="productWidthInput" class="form-label">Ancho</label>
                 <div class="mb-3 input-group">
-                    <input type="number" name="productWidth" class="form-control" aria-label="Ancho del producto en centímetos" id="productWidthInput"
-                    value="{{product.productWidth}}">
+                    <input type="number" name="productWidth" class="form-control"
+                           aria-label="Ancho del producto en centímetos" id="productWidthInput"
+                           value="{{product.productWidth}}">
                     <span class="input-group-text">cm</span>
                 </div>
             </div>
             <div class="col-md-3">
                 <label for="productLongInput" class="form-label">Largo</label>
                 <div class="mb-3 input-group">
-                    <input type="number" name="productLong" class="form-control" aria-label="Largo del producto en centímetos" id="productLongInput"
-                    value="{{product.productLong}}">
+                    <input type="number" name="productLong" class="form-control"
+                           aria-label="Largo del producto en centímetos" id="productLongInput"
+                           value="{{product.productLong}}">
                     <span class="input-group-text">cm</span>
                 </div>
             </div>
             <div class="col-md-3">
                 <label for="productHighInput" class="form-label">Alto</label>
                 <div class="mb-3 input-group">
-                    <input type="number" name="productHigh" class="form-control" aria-label="Alto del producto en centímetros" id="productHighInput"
-                    value="{{product.productHigh}}">
+                    <input type="number" name="productHigh" class="form-control"
+                           aria-label="Alto del producto en centímetros" id="productHighInput"
+                           value="{{product.productHigh}}">
                     <span class="input-group-text">cm</span>
                 </div>
             </div>
             <div class="col-md-3">
                 <label for="productWeightInput" class="form-label">Peso</label>
                 <div class="mb-3 input-group">
-                    <input type="number" name="productWeight" class="form-control" aria-label="Peso del producto en kilogramos" id="productWeightInput"
-                    value="{{product.productWeight}}">
+                    <input type="number" name="productWeight" class="form-control"
+                           aria-label="Peso del producto en kilogramos" id="productWeightInput"
+                           value="{{product.productWeight}}">
                     <span class="input-group-text">kg</span>
                 </div>
             </div>

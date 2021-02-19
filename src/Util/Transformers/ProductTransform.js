@@ -13,6 +13,8 @@ export const dbStructureTransform = (payload) => {
         product_high: payload.productHigh,
         product_weight: payload.productWeight,
         product_stock: payload.productStock === '' ? null : payload.productStock,
+        product_img_name: payload.productImgName,
+        product_img_url: payload.productImgUrl,
         enabled: 1
     }
 }
@@ -33,5 +35,7 @@ export const selectTransform = (payload) => {
         productHigh: payload.product_high,
         productWeight: payload.product_weight,
         productStock: payload.product_stock,
+        productImgName: payload.product_img_name,
+        productImgUrl: payload.product_img_url,
     }
 }

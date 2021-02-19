@@ -13,6 +13,9 @@ import productAPI from './src/Products/ProductAPI';
 // Initialization
 const app = express();
 
+// Public
+app.use(express.static('public'));
+
 // Settings
 app.set('views', path.join(__dirname, 'src/Views'));
 app.engine('.hbs', exphbs({
@@ -41,9 +44,6 @@ app.use('/customers', customerWEB);
 app.use('/customers/api', customerAPI);
 app.use('/products', productWEB);
 app.use('/products/api', productAPI);
-
-// Public
-app.use(express.static(path.join(__dirname, 'src/Public')));
 
 // RUN
 app.listen(process.env.PORT || 3000, () => {

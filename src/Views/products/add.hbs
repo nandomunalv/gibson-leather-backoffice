@@ -4,7 +4,7 @@
             <h1>Nuevo Producto</h1>
         </div>
     </div>
-    <form action="/products/api/products" method="POST">
+    <form action="/products/api/products" method="POST" enctype="multipart/form-data">
         <p class="fst-italic">Los campos con * son olbigatorios</p>
         <input type="text" name="productSku" class="form-control" value="" readonly hidden>
         <div class="row mt-4">
@@ -32,13 +32,11 @@
             </div>
             <div class="col-md-6">
                 <div class="mb-3">
-                    <img src="https://dummyimage.com/250x250/000/fff.jpg" class="rounded mx-auto d-block" alt="...">
+                    <img src="/img/default.png" class="rounded mx-auto d-block" alt="..." width="250" height="250">
                 </div>
                 <div class="mb-3">
                     <div class="d-grid gap-2 col-8 mx-auto">
-                        <input class="form-control" type="file" id="formFile" name="formFile">
-                        <button class="btn btn-primary" type="button">Subir imagen</button>
-                        <button class="btn btn-danger" type="button">Eliminar</button>
+                        <input class="form-control" type="file" id="formFile" name="sampleFile">
                     </div>
                 </div>
             </div>
@@ -63,7 +61,8 @@
                 <label for="productPriceInput" class="form-label">Precio</label>
                 <div class="mb-3 input-group">
                     <span class="input-group-text">S/.</span>
-                    <input type="number" name="productPrice" class="form-control" aria-label="Precio en soles" placeholder="Ejm: 125" id="productPriceInput">
+                    <input type="number" name="productPrice" class="form-control" aria-label="Precio en soles"
+                           placeholder="Ejm: 125" id="productPriceInput">
                 </div>
             </div>
             <div class="col-md-3">
@@ -80,28 +79,32 @@
             <div class="col-md-3">
                 <label for="productWidthInput" class="form-label">Ancho</label>
                 <div class="mb-3 input-group">
-                    <input type="number" name="productWidth" class="form-control" aria-label="Ancho del producto en centímetos" id="productWidthInput">
+                    <input type="number" name="productWidth" class="form-control"
+                           aria-label="Ancho del producto en centímetos" id="productWidthInput">
                     <span class="input-group-text">cm</span>
                 </div>
             </div>
             <div class="col-md-3">
                 <label for="productLongInput" class="form-label">Largo</label>
                 <div class="mb-3 input-group">
-                    <input type="number" name="productLong" class="form-control" aria-label="Largo del producto en centímetos" id="productLongInput">
+                    <input type="number" name="productLong" class="form-control"
+                           aria-label="Largo del producto en centímetos" id="productLongInput">
                     <span class="input-group-text">cm</span>
                 </div>
             </div>
             <div class="col-md-3">
                 <label for="productHighInput" class="form-label">Alto</label>
                 <div class="mb-3 input-group">
-                    <input type="number" name="productHigh" class="form-control" aria-label="Alto del producto en centímetros" id="productHighInput">
+                    <input type="number" name="productHigh" class="form-control"
+                           aria-label="Alto del producto en centímetros" id="productHighInput">
                     <span class="input-group-text">cm</span>
                 </div>
             </div>
             <div class="col-md-3">
                 <label for="productWeightInput" class="form-label">Peso</label>
                 <div class="mb-3 input-group">
-                    <input type="number" name="productWeight" class="form-control" aria-label="Peso del producto en kilogramos" id="productWeightInput">
+                    <input type="number" name="productWeight" class="form-control"
+                           aria-label="Peso del producto en kilogramos" id="productWeightInput">
                     <span class="input-group-text">kg</span>
                 </div>
             </div>
