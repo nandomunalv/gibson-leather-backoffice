@@ -21,6 +21,7 @@ router.get('/add', (req, res) => {
 router.get('/edit/:productSku', async (req, res) => {
     const {productSku} = req.params;
     const result = await productService.searchOneProduct(productSku);
+
     res.render('products/edit', {product: result});
 });
 

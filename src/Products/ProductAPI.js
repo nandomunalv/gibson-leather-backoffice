@@ -34,7 +34,7 @@ router.post('/products/:id', upload.single('sampleFile'), async (req, res) => {
     const result = await productService.updatedProductData(id, payload);
 
     if (result.changedRows) {
-        await imgUtil.transferImage(req.file.filename, req.file.destination);
+        await imgUtil.transferImage(req.file.filename, req.file.destination, payload.imageName);
 
         req.flash('successMessage', result.message);
         res.redirect('/products/list?q=');

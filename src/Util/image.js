@@ -1,9 +1,15 @@
 import fs from 'fs';
 import * as imagemin from '../../config/imagemin';
 
-export const transferImage = async (fileName, destination) => {
+export const transferImage = async (fileName, destination, deleteFile) => {
     await imagemin.compress(fileName).then((val) => {
         console.log(`>>> Image compressed from "${val[0].sourcePath}" to "${val[0].destinationPath}".`);
+
+        const file = `public/img/components/products/${deleteFile}`;
+
+        deleteFile !== '' && fs.existsSync(file) ? 
+            fs.unlinkSync(file) : 
+            console.warn(`>>> El archivo no existe.`);
 
         removeTmpImage(fileName, destination);
         removeCompressImage(fileName);
