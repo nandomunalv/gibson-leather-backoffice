@@ -13,6 +13,9 @@ import productAPI from './src/Products/ProductAPI';
 // Initialization
 const app = express();
 
+// Public
+app.use(express.static('public'));
+
 // Settings
 app.set('views', path.join(__dirname, 'src/Views'));
 app.engine('.hbs', exphbs({
