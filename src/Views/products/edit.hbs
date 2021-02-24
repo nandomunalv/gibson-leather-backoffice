@@ -6,7 +6,7 @@
     </div>
     <form action="/products/api/products/{{product.productId}}" method="POST">
         <p class="fst-italic">Los campos con * son olbigatorios</p>
-        <div style="border: 1px solid black" class="row mt-4">
+        <div class="row mt-4">
             <div class="col-md-6">
                 <div class="mb-3">
                     <label for="productSkuInput" class="form-label">SKU</label>
@@ -34,22 +34,17 @@
                            placeholder="..." value="{{product.productDetails}}">
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="mt-2 mt-4">
                     {{#if product.productImgUrl}}
-                        <img src="{{product.productImgUrl}}" class="rounded mx-auto d-block" alt="..." width="250"
-                             height="250">
+                        <img src="{{product.productImgUrl}}" class="rounded mx-auto d-block" alt="..." width="300"
+                             height="300">
                     {{else}}
-                        <img src="/img/default.png" class="rounded  d-block" alt="..." width="300" height="300">
+                        <img src="/img/default.png" class="rounded mx-auto d-block" alt="..." width="300" height="300">
                     {{/if}}
                 </div>
-            </div>
-            <div class="col-md-2">
-                <div class="mb-3">
-                    <div class="d-grid gap-2 col-6 ">
-                        <input class="form-control" type="file" id="formFile" name="sampleFile">
-                        <button class="btn btn-danger" type="button">Eliminar</button>
-                    </div>
+                <div class="d-grid mx-auto gap-2 col-8 mt-3">
+                    <input class="form-control" type="file" id="formFile" name="sampleFile">
                 </div>
             </div>
         </div>
