@@ -5,13 +5,20 @@ const router = Router();
 
 router.get('/list', async (req, res) => {
     let result;
+
+    console.log(req.sessionID);
+    console.log(req.session.id);
+    console.log(req.session.cookie.expires);
+
     const {q} = req.query;
     if(!!q || q !== '') {
         result = await productService.searchDynamicProduct(q);
     } else {
         result = await productService.searchProducts();
     }
-    res.render('products/list', {result});
+    res.render('products/list', {result, helpers: {
+        hello: () => {console.log('hello')}
+    }});
 });
 
 router.get('/add', (req, res) => {
