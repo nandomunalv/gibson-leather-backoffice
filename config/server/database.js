@@ -1,9 +1,9 @@
-import {promisify} from 'util';
-import mysql from 'mysql';
-import * as config from '../config/enviroment/local.env.json';
+const {promisify} = require('util');
+const mysql = require('mysql');
+const config = require('config');
 
-const dbConfig = config.global.dbConfig;
-const pool = mysql.createPool(dbConfig);
+const db = config.get('global.database');
+const pool = mysql.createPool(db);
 
 pool.getConnection((err, connection) => {
     if (err) {
@@ -22,13 +22,13 @@ pool.getConnection((err, connection) => {
 
     if (connection) connection.release();
 
-    console.log('DB is connected');
+    console.log('>>> The database is ready');
 });
 
 // Promisify Pool Query's
 pool.query = promisify(pool.query);
 
-export default pool;
+module.exports = pool;
 
 
 

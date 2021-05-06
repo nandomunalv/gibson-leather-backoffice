@@ -1,4 +1,4 @@
-const pool = require('../../../config/database');
+const pool = require('./../../config/server/database');
 
 const exec = require('./product.constants');
 

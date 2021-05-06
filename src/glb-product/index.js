@@ -39,5 +39,4 @@ router.put('/product/:id', async (request, response) => {
     response.send({ok: true, message: 'Success execution.'});
 });
 
-
-
+module.exports = router;

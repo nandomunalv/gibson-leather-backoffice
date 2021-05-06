@@ -33,4 +33,6 @@ router.delete('/customer/disable/:id', async(request, response) => {
     console.log(data);
 
     response.status(204);
-})
+});
+
+module.exports = router;

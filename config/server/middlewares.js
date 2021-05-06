@@ -1,15 +1,6 @@
-import morgan from 'morgan';
-import cors from 'cors';
-import express from 'express';
-import flash from 'connect-flash';
-import session from 'express-session';
-import MySQLStore from 'express-mysql-session';
-
-import * as config from '../config/enviroment/local.env.json';
-
-const dbConfig = config.global.dbConfig;
-
-module.exports = [
+// import session from 'express-session';
+// import MySQLStore from 'express-mysql-session';
+/*
     session({
         key: 'session_cookie_name',
         secret: 'session_cookie_secret',
@@ -18,8 +9,14 @@ module.exports = [
         store: new MySQLStore(dbConfig),
         cookie: { maxAge: 180 * 60 * 1000 }
     }),
+*/
+
+const morgan = require('morgan');
+const cors = require('cors');
+const express = require('express');
+
+module.exports = [
     morgan('dev'),
-    flash(),
     cors({
         origin: true,
         methods: ['HEAD', 'GET', 'POST', 'PUT', 'PATCH', 'DELETE'],

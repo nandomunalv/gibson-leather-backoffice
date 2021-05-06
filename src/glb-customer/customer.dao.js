@@ -1,4 +1,4 @@
-const pool = require('../../../config/database');
+const pool = require('./../../config/server/database');
 
 const {
     SEARCH_SIMPLE_QUERY,
