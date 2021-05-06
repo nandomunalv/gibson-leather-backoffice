@@ -15,7 +15,8 @@ module.exports = [
         secret: 'session_cookie_secret',
         resave: false,
         saveUninitialized: false,
-        store: new MySQLStore(dbConfig)
+        store: new MySQLStore(dbConfig),
+        cookie: { maxAge: 180 * 60 * 1000 }
     }),
     morgan('dev'),
     flash(),

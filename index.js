@@ -9,6 +9,8 @@ import customerWEB from './src/Customer/CustomerWEB';
 import customerAPI from './src/Customer/CustomerAPI';
 import productWEB from './src/Products/ProductWEB';
 import productAPI from './src/Products/ProductAPI';
+import orderWEB from './src/Orders/OrderWEB';
+import orderAPI from './src/Orders/OrderAPI';
 
 // Initialization
 const app = express();
@@ -36,6 +38,7 @@ app.use((req, res, next) => {
     app.locals.errorMessage = req.flash('errorMessage');
     app.locals.infoMessage = req.flash('infoMessage');
     app.locals.user = req.user;
+    app.locals.session = req.session;
     next();
 })
 
@@ -44,7 +47,7 @@ app.use('/customers', customerWEB);
 app.use('/customers/api', customerAPI);
 app.use('/products', productWEB);
 app.use('/products/api', productAPI);
-
+app.use('/orders', orderWEB);
 // RUN
 app.listen(process.env.PORT || 3000, () => {
     console.log('El servidor esta levantado.');
