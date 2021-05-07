@@ -4,35 +4,48 @@ const controller = require('./customer.controller');
 
 const router = express.Router();
 
-router.post('/customer', async (request, response) => {
-    const payload = req.body;
-    const data = await controller.createCustomer(payload);
 
-    console.log(data);
+router.get('/all', async (request, response) => {
+    const data = await controller.getCustomers();
+    response.send({data});
+});
+
+router.get('/customer', async (request, response) => {
+    const {q}= request.query;
+    const data = await controller.getDynamicCustomer(q);
+
+    response.send({data});
+});
+
+router.post('/customer', async (request, response) => {
+    const payload = request.body;
+    const customer = await controller.createCustomer(payload);
 
     response
-        .send({ok: true, message: 'Success execution.'})
+        .send({ok: true, customer, message: `El cliente fue creado.`})
         .status(201);
 });
 
 router.put('/customer/:id', async (request, response) => {
     const {id} = request.params;
     const payload = request.body;
-    const data = await controller.editCustomer(id, payload);
-
-    console.log(data);
+    const customer = await controller.editCustomer(id, payload);
 
     response
-        .send({ok: true, message: 'Success execution.'});
+        .send({ok: true, customer, message: 'El cliente fue actualizado'});
 });
 
 router.delete('/customer/disable/:id', async(request, response) => {
     const {id} = request.params;
-    const data = await controller.removeCustomer(id);
+    const disable = await controller.removeCustomer(id);
 
-    console.log(data);
-
-    response.status(204);
+    if (disable) {
+        response.status(204).end();
+    } else {
+        response
+            .send({status: 'error', message: 'El cliente ya fue desactivado.'})
+            .status(400);
+    }
 });
 
 module.exports = router;

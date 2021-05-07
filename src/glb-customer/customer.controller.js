@@ -15,19 +15,16 @@ const getDynamicCustomer = async (word) => {
 
 const createCustomer = async (payload) => {
     const cleanPayload = webForDatabaseTransform(payload);
-    const result = await service.addCustomer(cleanPayload);
-    console.log(result);
+    return await service.addCustomer(cleanPayload);
 }
 
 const editCustomer = async (identifier, payload) => {
     const cleanPayload = webForDatabaseTransform(payload);
-    const result = await service.updateCustomer(identifier, cleanPayload);
-    console.log(result);
+    return await service.updateCustomer(identifier, cleanPayload);
 }
 
 const removeCustomer = async (identifier) => {
-    const result = await service.disableCustomer(identifier);
-    console.log(result);
+    return await service.disableCustomer(identifier);
 }
 
 module.exports = {

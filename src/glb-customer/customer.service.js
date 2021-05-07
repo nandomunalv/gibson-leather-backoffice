@@ -28,7 +28,6 @@ const addCustomer = async (payload) => {
         })
         .catch((err) => {
             console.log('>>>>>>> ', err);
-            throw new Error('Algo se jodió aquí xd');
         });
 
     return result;
@@ -43,7 +42,6 @@ const updateCustomer = async (identifier, payload) => {
         })
         .catch((err) => {
             console.log('>>>>>>> ', err);
-            throw new Error('Algo se jodió aquí xd');
         });
     
     return result;
@@ -58,7 +56,6 @@ const disableCustomer = async (identifier) => {
         })
         .catch((err) => {
             console.log('>>>>>>> ', err);
-            throw new Error('Algo se jodió aquí xd');
         })
     
     return result;

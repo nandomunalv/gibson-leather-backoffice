@@ -6,9 +6,8 @@ const router = express.Router();
 
 
 router.get('/all', async (request, response) => {
-    const data = await controller.getProducts();
-    
-    response.send({ok: true, data})
+    const data = await controller.getProducts();    
+    response.send({ok: true, data});
 });
 
 router.get('/product', async (request, response) => {
