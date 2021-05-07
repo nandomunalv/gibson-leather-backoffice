@@ -25,8 +25,7 @@ const addProduct = async (payload) => {
             result = dbResp.insertId;
         })
         .catch((err) => {
-            console.log('>>>>>>> ', err);
-            throw new Error('Algo se jodió aquí xd');
+            console.error('>>>>>>> ', err.sqlMessage);
         });
 
     return result;
@@ -37,11 +36,10 @@ const updateProduct = async (identifier, payload) => {
 
     await database.updateProductDataById(identifier, payload)
         .then((dbResp) => {
-            result = dbResp.insertId;
+            result = dbResp.changedRows;
         })
         .catch((err) => {
-            console.log('>>>>>>> ', err);
-            throw new Error('Algo se jodió aquí xd');
+            console.error('>>>>>>> ', err.sqlMessage);
         });
 
     return result;

@@ -15,14 +15,13 @@ const getDynamicProduct = async (word) => {
 
 const createProduct = async (payload) => {
     const cleanPayload = transformWebToDatabase(payload);
-    const result = await service.addProduct(cleanPayload);
-    console.log(result);
+    return await service.addProduct(cleanPayload);
 }
 
 const editProduct = async (identifier, payload) => {
     const cleanPayload = transformWebToDatabase(payload);
-    const result = await service.updateCustomer(identifier, cleanPayload);
-    console.log(result);
+    return await service.updateProduct(identifier, cleanPayload);
+    
 }
 
 const removeProduct = async (identifier) => {

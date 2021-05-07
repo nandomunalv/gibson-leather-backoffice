@@ -1,3 +1,5 @@
+const { ErrorHandler } = require("../glb-util/errror");
+
 const generateSKU = (productType, productName, productColor, productGender) => {
     const skuProductType = productType.substr(0,3).toUpperCase();
     const skuProductName = productName.substr(0,3).toUpperCase();
@@ -10,7 +12,7 @@ const generateSKU = (productType, productName, productColor, productGender) => {
 const addProductsToList = (resultArr) => {
     let arrResponse = [];
     for (let i = 0; resultArr.length > i; i++) {
-        const data = transform.selectTransform(resultArr[i]);
+        const data = transformDatabaseToWeb(resultArr[i]);
         arrResponse.push(data);
     }
     return arrResponse;
@@ -18,43 +20,43 @@ const addProductsToList = (resultArr) => {
 
 const transformWebToDatabase = (payload) => {
     return {
-        product_sku: generateSKU(payload.productType, payload.productName, payload.productColor, payload.productGender),
-        product_type: payload.productType === '' ? null : payload.productType,
-        product_name: payload.productName === '' ? null : payload.productName,
-        product_description: payload.productDescription === '' ? null : payload.productDescription,
-        product_details: payload.productDetails,
-        product_price: payload.productPrice === '' ? null : payload.productPrice,
-        product_color: payload.productColor === '' ? null : payload.productColor,
-        product_gender: payload.productGender === '' ? null : payload.productGender,
-        product_width: payload.productWidth,
-        product_long: payload.productLong,
-        product_high: payload.productHigh,
-        product_weight: payload.productWeight,
-        product_stock: payload.productStock === '' ? null : payload.productStock,
-        product_img_name: payload.productImgName,
-        product_img_url: payload.productImgUrl,
+        product_sku: generateSKU(payload.type, payload.name, payload.color, payload.gender),
+        product_type: payload.type === '' ? null : payload.type,
+        product_name: payload.name,
+        product_description: payload.description === '' ? null : payload.description,
+        product_details: payload.details,
+        product_price: payload.price === '' ? null : payload.price,
+        product_color: payload.color === '' ? null : payload.color,
+        product_gender: payload.gender === '' ? null : payload.gender,
+        product_width: payload.widthCm,
+        product_long: payload.longCm,
+        product_high: payload.highCm,
+        product_weight: payload.Weight,
+        product_stock: payload.stock === '' ? null : payload.stock,
+        product_img_name: payload.imgName,
+        product_img_url: payload.imgUrl,
         enabled: 1
     }
 }
 
 const transformDatabaseToWeb = (payload) => {
     return {
-        productId: payload.product_id,
-        productSku: payload.product_sku,
-        productType: payload.product_type,
-        productName: payload.product_name,
-        productDescription: payload.product_description,
-        productDetails: payload.product_details,
-        productPrice: payload.product_price,
-        productColor: payload.product_color,
-        productGender: payload.product_gender,
-        productWidth: payload.product_width,
-        productLong: payload.product_long,
-        productHigh: payload.product_high,
-        productWeight: payload.product_weight,
-        productStock: payload.product_stock,
-        productImgName: payload.product_img_name,
-        productImgUrl: payload.product_img_url,
+        id: payload.product_id,
+        sku: payload.product_sku,
+        type: payload.product_type,
+        name: payload.product_name,
+        description: payload.product_description,
+        details: payload.product_details,
+        price: payload.product_price,
+        color: payload.product_color,
+        gender: payload.product_gender,
+        widthCm: payload.product_width,
+        longCm: payload.product_long,
+        highCm: payload.product_high,
+        weightKg: payload.product_weight,
+        stock: payload.product_stock,
+        imgName: payload.product_img_name,
+        imgUrl: payload.product_img_url,
     }
 }
 

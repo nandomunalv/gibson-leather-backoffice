@@ -13,7 +13,7 @@ router.get('/all', async (request, response) => {
 
 router.get('/product', async (request, response) => {
     const {q} =  request.query;
-    const data = controller.getDynamicProduct(q);
+    const data = await controller.getDynamicProduct(q);
 
     response.send({ok: true, data})
 });
@@ -22,10 +22,8 @@ router.post('/product', async (request, response) => {
     const payload = request.body;
     const data = await controller.createProduct(payload);
 
-    console.log(data);
-
     response
-        .send({ok: true, message: 'Success execution.'})
+        .send({ok: true, product: data, message: `The product was created.`})
         .status(201);
 });
 
@@ -34,9 +32,7 @@ router.put('/product/:id', async (request, response) => {
     const payload = request.body;
     const data = await controller.editProduct(id, payload);
 
-    console.log(data);
-
-    response.send({ok: true, message: 'Success execution.'});
+    response.send({ok: true, product: data, message: 'The product has been updated.'});
 });
 
 module.exports = router;
