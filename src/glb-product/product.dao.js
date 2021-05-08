@@ -1,6 +1,6 @@
 const pool = require('./../../config/server/database');
-
 const exec = require('./product.constants');
+
 
 const findProducts = async () => {
     return await pool.query(exec.Q_SEARCH_ALL);
@@ -23,7 +23,7 @@ const updateProductDataById = async (productId, data) => {
 };
 
 const updateProductStatus = async (productId) => {
-    //TODO: Build query to disable products
+    return await pool.query(exec.QUERY_DISABLED, [productId]);
 };
 
 
@@ -32,5 +32,6 @@ module.exports = {
     findOneProductBySku,
     findDynamicProduct,
     insertProduct,
-    updateProductDataById
+    updateProductDataById,
+    updateProductStatus
 }

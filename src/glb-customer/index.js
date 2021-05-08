@@ -50,8 +50,8 @@ router.delete('/customer/disable/:id', async(request, response, next) => {
                 response.status(204).end();
             } else {
                 response
-                    .send({status: 'error', message: 'El cliente ya fue desactivado.'})
-                    .status(400);
+                    .status(400)
+                    .send({status: 'error', message: 'El cliente ya fue desactivado.'});
             }
         })
         .catch((err) => next(new ErrorHandler(err)));
