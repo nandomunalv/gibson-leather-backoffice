@@ -1,4 +1,3 @@
-const { ErrorHandler } = require('../glb-util/errror');
 const pool = require('./../../config/server/database');
 
 const exec = require('./product.constants');

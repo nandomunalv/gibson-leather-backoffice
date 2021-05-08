@@ -5,8 +5,8 @@ const controller = require('./customer.controller');
 const router = express.Router();
 
 
-router.get('/all', async (request, response) => {
-    const data = await controller.getCustomers();
+router.get('/all', async (request, response, next) => {
+    const data = await controller.getCustomers().catch((err) => next(err));
     response.send({data});
 });
 
@@ -47,5 +47,15 @@ router.delete('/customer/disable/:id', async(request, response) => {
             .status(400);
     }
 });
+
+// router.use((error, req, res, next) => {
+//     if (error) {
+//         process.on('unhandledRejection', (err) => {
+//             handleError(err, res);
+//         });
+//     } 
+//     next();
+// });
+
 
 module.exports = router;

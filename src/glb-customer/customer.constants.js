@@ -1,4 +1,4 @@
-const SEARCH_SIMPLE_QUERY = 'SELECT * FROM glb_mst_customers WHERE enabled = 1 LIMIT 10';
+const SEARCH_SIMPLE_QUERY = 'SELECT * FROM glb_mst_customers WHERE enaled = 1 LIMIT 10';
 
 const SEARCH_ONE_CLIENT_QUERY = 'SELECT * FROM glb_mst_customers WHERE document_number = ?';
 
