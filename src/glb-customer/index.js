@@ -41,27 +41,20 @@ router.put('/customer/:id', async (request, response) => {
         .send({ok: true, customer, message: 'El cliente fue actualizado'});
 });
 
-router.delete('/customer/disable/:id', async(request, response) => {
+router.delete('/customer/disable/:id', async(request, response, next) => {
     const {id} = request.params;
-    const disable = await controller.removeCustomer(id);
-
-    if (disable) {
-        response.status(204).end();
-    } else {
-        response
-            .send({status: 'error', message: 'El cliente ya fue desactivado.'})
-            .status(400);
-    }
+    
+    await controller.removeCustomer(id)
+        .then((disable) => {
+            if (disable) {
+                response.status(204).end();
+            } else {
+                response
+                    .send({status: 'error', message: 'El cliente ya fue desactivado.'})
+                    .status(400);
+            }
+        })
+        .catch((err) => next(new ErrorHandler(err)));
 });
-
-// router.use((error, req, res, next) => {
-//     if (error) {
-//         process.on('unhandledRejection', (err) => {
-//             handleError(err, res);
-//         });
-//     } 
-//     next();
-// });
-
 
 module.exports = router;

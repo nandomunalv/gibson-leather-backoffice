@@ -20,45 +20,18 @@ const searchDynamicCustomer = async (word) => {
 }
 
 const addCustomer = async (payload) => {
-    let result = 0;
-    
-    await database.insertCustomer(payload)
-        .then((dbResp) => {
-            result = dbResp.insertId
-        })
-        .catch((err) => {
-            console.log('>>>>>>> ', err);
-        });
-
-    return result;
+    const dbResp = await database.insertCustomer(payload);
+    return dbResp.insertId;
 }
 
 const updateCustomer = async (identifier, payload) => {
-    let result = 0;
-
-    await database.updateCustomerDataById(identifier, payload)
-        .then((dbResp) => {
-            result = dbResp.changedRows;
-        })
-        .catch((err) => {
-            console.log('>>>>>>> ', err);
-        });
-    
-    return result;
+    const dbResp = await database.updateCustomerDataById(identifier, payload);
+    return dbResp.changedRows;
 }
 
 const disableCustomer = async (identifier) => {
-    let result = 0;
-
-    await database.updateCustomerStatus(identifier)
-        .then((dbResp) => {
-            result = dbResp.changedRows;
-        })
-        .catch((err) => {
-            console.log('>>>>>>> ', err);
-        })
-    
-    return result;
+    const dbResp = await database.updateCustomerStatus(identifier);
+    return dbResp.changedRows;
 }
 
 module.exports = {
