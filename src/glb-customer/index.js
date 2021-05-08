@@ -1,44 +1,51 @@
 const express = require('express');
+const router = express.Router();
 
 const controller = require('./customer.controller');
-
-const router = express.Router();
 
 const {ErrorHandler} = require('./../glb-util/errror');
 
 
 router.get('/all', async (request, response, next) => {
     await controller.getCustomers()
-        .then((data) => {
-            response.send({data});
-        })
-        .catch((err) => next(new ErrorHandler(500, err)));
-
+        .then((data) => response.send({data}))
+        .catch((err) => next(new ErrorHandler(err)));
 });
 
-router.get('/customer', async (request, response) => {
+router.get('/customer', async (request, response, next) => {
     const {q}= request.query;
-    const data = await controller.getDynamicCustomer(q);
 
-    response.send({data});
+    await controller.getDynamicCustomer(q)
+        .then((data) => response.send({data}))
+        .catch((err) => next(new ErrorHandler(err)));
 });
 
-router.post('/customer', async (request, response) => {
+router.post('/customer', async (request, response, next) => {
     const payload = request.body;
-    const customer = await controller.createCustomer(payload);
 
-    response
-        .send({ok: true, customer, message: `El cliente fue creado.`})
-        .status(201);
+    await controller.createCustomer(payload)
+        .then((customer) => {
+            response
+                .status(201)
+                .send({ok: true, customer, message: 'El cliente fue creado.'});
+        })
+        .catch((err) => next(new ErrorHandler(err)));
 });
 
-router.put('/customer/:id', async (request, response) => {
+router.put('/customer/:id', async (request, response, next) => {
     const {id} = request.params;
     const payload = request.body;
-    const customer = await controller.editCustomer(id, payload);
 
-    response
-        .send({ok: true, customer, message: 'El cliente fue actualizado'});
+    await controller.editCustomer(id, payload)
+        .then((customer) => {
+            if (customer) {
+                response
+                    .send({ok: true, customer, message: 'El cliente fue actualizado'});
+            } else {
+                response.status(204).end();
+            }
+        })
+        .catch((err) => next(new ErrorHandler(err)));    
 });
 
 router.delete('/customer/disable/:id', async(request, response, next) => {
@@ -51,7 +58,7 @@ router.delete('/customer/disable/:id', async(request, response, next) => {
             } else {
                 response
                     .status(400)
-                    .send({status: 'error', message: 'El cliente ya fue desactivado.'});
+                    .send({status: 'info', message: 'El cliente ya fue desactivado.'});
             }
         })
         .catch((err) => next(new ErrorHandler(err)));
