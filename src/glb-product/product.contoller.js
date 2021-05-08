@@ -25,7 +25,7 @@ const editProduct = async (identifier, payload) => {
 }
 
 const removeProduct = async (identifier) => {
-    // TODO: Falta implementar
+    return await service.disableProduct(identifier);
 }
 
 module.exports = {
@@ -34,4 +34,5 @@ module.exports = {
     getDynamicProduct,
     createProduct,
     editProduct,
+    removeProduct
 }

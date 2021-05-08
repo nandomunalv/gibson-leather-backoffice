@@ -18,35 +18,18 @@ const searchDynamicProduct = async (word) => {
 };
 
 const addProduct = async (payload) => {
-    let result = 0;
-
-    await database.insertProduct(payload)
-        .then((dbResp) => {
-            result = dbResp.insertId;
-        })
-        .catch((err) => {
-            console.error('>>>>>>> ', err.sqlMessage);
-        });
-
-    return result;
+    const dbResp = await database.insertProduct(payload);
+    return dbResp.insertId;
 };
 
 const updateProduct = async (identifier, payload) => {
-    let result = 0;
-
-    await database.updateProductDataById(identifier, payload)
-        .then((dbResp) => {
-            result = dbResp.changedRows;
-        })
-        .catch((err) => {
-            console.error('>>>>>>> ', err.sqlMessage);
-        });
-
-    return result;
+    const dbResp = await database.updateProductDataById(identifier, payload);
+    return dbResp.changedRows;
 };
 
 const disableProduct = async (identifier) => {
-    // TODO: Falta implementar
+    const dbResp = await database.updateProductStatus(identifier);
+    return dbResp.changedRows;
 };
 
 module.exports = {
