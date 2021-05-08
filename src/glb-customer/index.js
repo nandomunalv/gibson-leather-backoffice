@@ -4,10 +4,16 @@ const controller = require('./customer.controller');
 
 const router = express.Router();
 
+const {ErrorHandler} = require('./../glb-util/errror');
+
 
 router.get('/all', async (request, response, next) => {
-    const data = await controller.getCustomers().catch((err) => next(err));
-    response.send({data});
+    await controller.getCustomers()
+        .then((data) => {
+            response.send({data});
+        })
+        .catch((err) => next(new ErrorHandler(500, err)));
+
 });
 
 router.get('/customer', async (request, response) => {
