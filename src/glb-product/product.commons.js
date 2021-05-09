@@ -1,5 +1,3 @@
-const { ErrorHandler } = require("../glb-util/errror");
-
 const generateSKU = (productType, productName, productColor, productGender) => {
     const skuProductType = productType.substr(0,3).toUpperCase();
     const skuProductName = productName.substr(0,3).toUpperCase();
@@ -28,10 +26,10 @@ const transformWebToDatabase = (payload) => {
         product_price: payload.price === '' ? null : payload.price,
         product_color: payload.color === '' ? null : payload.color,
         product_gender: payload.gender === '' ? null : payload.gender,
-        product_width: payload.widthCm,
-        product_long: payload.longCm,
-        product_high: payload.highCm,
-        product_weight: payload.Weight,
+        product_width: payload.widthcm,
+        product_long: payload.longcm,
+        product_high: payload.highcm,
+        product_weight: payload.weightkg,
         product_stock: payload.stock === '' ? null : payload.stock,
         product_img_name: payload.imgName,
         product_img_url: payload.imgUrl,
@@ -50,10 +48,10 @@ const transformDatabaseToWeb = (payload) => {
         price: payload.product_price,
         color: payload.product_color,
         gender: payload.product_gender,
-        widthCm: payload.product_width,
-        longCm: payload.product_long,
-        highCm: payload.product_high,
-        weightKg: payload.product_weight,
+        widthcm: payload.product_width,
+        longcm: payload.product_long,
+        highcm: payload.product_high,
+        weightkg: payload.product_weight,
         stock: payload.product_stock,
         imgName: payload.product_img_name,
         imgUrl: payload.product_img_url,
