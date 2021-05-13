@@ -3,6 +3,9 @@ const exec = require('./customer.constants');
 
 
 const findCustomers = async () => {
+    pool.getConnection((err, con) => {
+        console.log(con);
+    });
     return pool.query(exec.QUERY_SEARCH_ALL);
 }
 
