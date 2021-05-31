@@ -19,13 +19,14 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-mysql": "0.0.1",
-    "express-mysql-session": "",
+    "express-mysql-session": "^2.1.6",
     "express-session": "^1.17.1",
     "imagemin": "^7.0.1",
     "imagemin-mozjpeg": "^9.0.0",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

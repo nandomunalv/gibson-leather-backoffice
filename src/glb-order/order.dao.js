@@ -1,68 +1,61 @@
 const pool = require('./../../config/server/database');
 const exec = require('./order.constants');
+const helpers = require('./order.commons');
 
 const findProductsBySku = async (data) => {
-    const searchQuery = exec.QUERY_SEARCH_PRODUCT.replace('@sku',data);
+    const searchQuery = exec.QUERY_SEARCH_PRODUCT.replace('@sku', data);
     return pool.query(searchQuery);
 }
 
-const insertOrder = async (products) => {
-    const productList = `'${products.join("','")}'`;
-
-    console.log(productList);
-
-    pool.getConnection(async (err, connection) => {
-
-        await connection.query('SET TRANSACTION ISOLATION LEVEL READ COMMITTED');
-        console.log('Finished setting the isolation level to read committed');
-
-        connection.beginTransaction((err) => {
-            if (err) { /*Set an error*/
-                console.err('>>> Transaction error:', err);
-            }
-            connection.query('INSERT INTO glb_trx_orders SET ?', dataCore, (err, result1) => {
-                if (err) {
-                    return connection.rollback(() => {/*Set an error*/
-                        console.log('>>> Rollback 1:', err);
-                    })
+const insertOrder = (orderData, detailData) => {
+    return new Promise((resolve, reject) => {
+        pool.getConnection(async (err, connection) => {
+            // await connection.query('SET TRANSACTION ISOLATION LEVEL READ COMMITTED');
+            // console.log('Finished setting the isolation level to read committed');
+            connection.beginTransaction((err) => {
+                if (err) { /*Set an error*/
+                    console.err('>>> Transaction error:', err);
                 }
-
-                const orderId = result1.insertId;
-
-                for (let i = 0; i < dataDetail.length; i++) {
-                    dataDetail[i].order_id = orderId;
-                    console.log('>>> Detail incoming:', JSON.stringify(dataDetail[i]))
-                }
-
-                const newDataDetail = dataDetail.map(item => [
-                    item.order_id,
-                    item.order_item_status_code,
-                    item.product_id,
-                    item.order_item_quantity,
-                    item.order_item_price])
-
-                connection.query('INSERT INTO glb_trx_order_items (order_id, order_item_status_code, product_id, order_item_quantity, order_item_price) VALUES ?', [newDataDetail], (err, result2) => {
+                // TODO: Creación de Orden
+                connection.query(exec.QUERY_INSERT_ORDER, orderData, (err, result1) => {
                     if (err) {
                         return connection.rollback(() => {/*Set an error*/
-                            connection.release();
-                            console.log('>>> Rollback 2:', err);
+                            console.log('>>> Rollback 1:', err);
                         })
                     }
-                    connection.commit((err) => {
+
+                    const orderId = result1.insertId;
+
+                    for (let i = 0; i < detailData.length; i++) {
+                        detailData[i].orderId = orderId;
+                        console.log('>>> Order id assignment:', JSON.stringify(detailData[i]))
+                    }
+
+                    const newProductsList = helpers.addProductInfoInOrderItems(detailData);
+                    console.log('>>> Order items information:', JSON.stringify(newProductsList));
+
+                    // TODO: Creación de Detalle de Orden
+                    connection.query(exec.QUERY_INSERT_ORDER_ITEMS, [newProductsList], (err, orderItemsResult) => {
                         if (err) {
                             return connection.rollback(() => {/*Set an error*/
-                                console.log('>>> Rollback commit:', err);
-                            })
+                                connection.release();
+                                console.log('>>> Rollback 2:', err);
+                            });
                         }
-                        console.log('>>> LETS FUCKING GO! Filas insertadas:', result2.affectedRows);
-                    })
+                        connection.commit((err) => {
+                            if (err) {
+                                return connection.rollback(() => {/*Set an error*/
+                                    console.log('>>> Rollback commit:', err);
+                                });
+                            }
+                            console.log('>>> LETS FUCKING GO! Ordenes insertadas:', orderItemsResult.affectedRows);
+                            resolve(orderItemsResult.affectedRows);
+                        })
+                    });
                 });
             });
-
-        })
+        });
     });
-
-
 }
 
 const dataCore = {
