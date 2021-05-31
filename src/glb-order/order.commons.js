@@ -20,3 +20,29 @@ const transformOrderDatabaseToWeb = (payload) => {
         dateOrderDelivered: payload.date_order_delivered,
     }
 }
+
+const transformOrderProductDataToWeb = (payload) => {
+    return {
+        id: payload.product_id,
+        sku: payload.product_sku,
+        name: payload.product_name,
+        price: payload.product_price,
+        stock: payload.product_stock
+    }
+}
+
+const addProductsToList = (resultArr) => {
+    let arrResponse = [];
+    for (let i = 0; resultArr.length > i; i++) {
+        const data = transformOrderProductDataToWeb(resultArr[i]);
+        arrResponse.push(data);
+    }
+    return arrResponse;
+}
+
+module.exports = {
+    transformOrderDatabaseToWeb,
+    transformOrderWebToDatabase,
+    transformOrderProductDataToWeb,
+    addProductsToList
+}

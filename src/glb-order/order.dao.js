@@ -1,6 +1,11 @@
 const pool = require('./../../config/server/database');
 const exec = require('./order.constants');
 
+const findProductsBySku = async (data) => {
+    const searchQuery = exec.QUERY_SEARCH_PRODUCT.replace('@sku',data);
+    return pool.query(searchQuery);
+}
+
 const insertOrder = async (products) => {
     const productList = `'${products.join("','")}'`;
 
@@ -86,5 +91,6 @@ const dataDetail = [
 
 
 module.exports = {
+    findProductsBySku,
     insertOrder,
 }

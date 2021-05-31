@@ -18,4 +18,12 @@ const QUERY_INSERT_ORDER = 'INSERT INTO glb_trx_orders SET ?';
 
 const QUERY_INSERT_ORDER_ITEMS = 'INSERT INTO glb_trx_order_items SET ?';
 
-const QUERY_SEARCH_PRODUCT = 'SELECT * FROM glb_mst_products WHERE product_sku';
+const QUERY_SEARCH_PRODUCT = 'SELECT * FROM glb_mst_products WHERE product_sku IN (@sku)';
+
+module.exports = {
+    ORDER_STATUS,
+    ORDER_STATUS_ITEM,
+    QUERY_INSERT_ORDER,
+    QUERY_INSERT_ORDER_ITEMS,
+    QUERY_SEARCH_PRODUCT,
+}
