@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const controller = require('./product.contoller');
+const controller = require('./product.controller');
 
 const {ErrorHandler} = require('./../glb-util/errror');
 
