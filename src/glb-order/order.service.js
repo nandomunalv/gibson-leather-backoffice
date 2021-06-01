@@ -1,6 +1,6 @@
 const database = require('./order.dao');
 const helpers = require('./order.commons');
-const { v4: uuidv4 } = require('uuid');
+const {v4: uuidV4} = require('uuid');
 
 const addOrder = async (payload, productsInfo) => {
     let orderData = {
@@ -15,19 +15,16 @@ const addOrder = async (payload, productsInfo) => {
 
     return database.insertOrder(orderData, productsInfo.productData)
         .then((result) => {
-            console.log('>>> Service result:', result);
             return result;
         })
         .catch((err) => {
-            console.log(err)
+            return err;
         });
 }
 
-// TODO: Change the function name to "setOrderInformation" or other
-const searchProducts = async (products) => {
-
+const setOrderInformation = async (products) => {
     const sku = products.map(item => item.sku);
-    const trackingCode = uuidv4().split('-')[0];
+    const trackingCode = uuidV4().split('-')[0];
     const productList = `'${sku.join("','")}'`;
 
     const dbResult = await database.findProductsBySku(productList);
@@ -35,19 +32,16 @@ const searchProducts = async (products) => {
 
     let moreInfo = {totalPrice: 0, trackingCode, dateOrderPlaced: new Date(), productData}
 
-    // console.log(JSON.stringify(productData));
-
     for (const product of productData) {
         const obj = products.find(item => item.sku === product.sku);
         moreInfo.totalPrice += product.price * obj.quantity;
         product.quantity = obj.quantity;
     }
-    // console.log('>>> More info:', moreInfo);
 
     return moreInfo;
 }
 
 module.exports = {
     addOrder,
-    searchProducts
+    setOrderInformation
 }
