@@ -4,9 +4,8 @@
   "description": "Backoffice para llevar el control de las ventas y productos",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node ./index.js",
-    "build": "babel ./ --out-dir build --ignore node_modules",
-    "serve": "node build/index.js"
+    "start": "nodemon ./bin/www.js",
+    "serve": "node ./bin/www.js"
   },
   "keywords": [
     "node",
@@ -16,24 +15,21 @@
   "author": "nandomunalv",
   "license": "ISC",
   "dependencies": {
-    "connect-flash": "^0.1.1",
+    "config": "^3.3.6",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "express-handlebars": "^5.2.0",
     "express-mysql": "0.0.1",
-    "express-mysql-session": "^2.1.5",
+    "express-mysql-session": "^2.1.6",
     "express-session": "^1.17.1",
     "imagemin": "^7.0.1",
     "imagemin-mozjpeg": "^9.0.0",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.10",
-    "@babel/core": "^7.12.10",
-    "@babel/node": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
+    "cross-env": "^7.0.3",
     "nodemon": "^2.0.7"
   }
 }
