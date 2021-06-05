@@ -2,6 +2,8 @@ const {promisify} = require('util');
 const mysql = require('mysql');
 const config = require('config');
 
+const {logger} = require('./logger');
+
 const db = config.get('global.database');
 const pool = mysql.createPool(db);
 
@@ -17,10 +19,8 @@ pool.getConnection((err, connection) => {
             console.error('DATABASE CONNECTION WAS REFUSED');
         }
     }
-
     if (connection) connection.release();
-
-    console.log('>>> The database is ready');
+    logger.info('DATABASE: Ready to use');
 });
 
 // Promisify Pool Query's

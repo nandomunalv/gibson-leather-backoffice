@@ -1,4 +1,5 @@
 const pool = require('./../../config/server/database');
+const {logger} = require('./../../config/server/logger');
 const exec = require('./order.constants');
 const helpers = require('./order.commons');
 
@@ -12,13 +13,13 @@ const insertOrder = (orderData, detailData) => {
         pool.getConnection(async (err, connection) => {
             connection.beginTransaction((err) => {
                 if (err) {
-                    console.err('>>> Transaction error:', err);
+                    logger.error({message: 'Transaction error', err})
                     reject(err);
                 }
                 connection.query(exec.QUERY_INSERT_ORDER, orderData, (err, result1) => {
                     if (err) {
                         return connection.rollback(() => {
-                            console.log('>>> Rollback 1:', err);
+                            logger.error({message: 'First rollback error', err})
                             reject(err);
                         });
                     }
@@ -27,27 +28,30 @@ const insertOrder = (orderData, detailData) => {
 
                     for (let i = 0; i < detailData.length; i++) {
                         detailData[i].orderId = orderId;
-                        console.log(`>>> Order id assignment for ${detailData[i].sku}:`, JSON.stringify(detailData[i]))
+                        logger.info(`Order id assignment for ${detailData[i].sku}: ${JSON.stringify(detailData[i])}`)
                     }
 
                     const newProductsList = helpers.addProductInfoInOrderItems(detailData);
-                    console.log('>>> Order items information:', JSON.stringify(newProductsList));
+                    logger.info(`Order items information: ${JSON.stringify(newProductsList)}`);
 
                     connection.query(exec.QUERY_INSERT_ORDER_ITEMS, [newProductsList], (err, orderItemsResult) => {
                         if (err) {
                             return connection.rollback(() => {
-                                console.log('>>> Rollback 2:', err);
+                                logger.error({message: 'Second rollback', err})
                                 reject(err);
                             });
                         }
                         connection.commit((err) => {
                             if (err) {
                                 return connection.rollback(() => {
-                                    console.log('>>> Rollback commit:', err);
+                                    logger.error({message: 'Commit rollback', err})
                                     reject(err);
                                 });
                             }
-                            resolve({ok: true, message: `New order (${orderId}) with ${orderItemsResult.affectedRows} products.`});
+                            resolve({
+                                ok: true,
+                                message: `New order (${orderId}) with ${orderItemsResult.affectedRows} products.`
+                            });
                         });
                     });
                 });
