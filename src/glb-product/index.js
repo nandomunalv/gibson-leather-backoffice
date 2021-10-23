@@ -8,7 +8,7 @@ const {ErrorHandler} = require('./../glb-util/errror');
 
 router.get('/all', async (request, response, next) => {
     await controller.getProducts()
-        .then((data) => response.send({data}))
+        .then((data) => response.send(data))
         .catch((err) => next(new ErrorHandler(err)));    
 });
 
@@ -16,7 +16,7 @@ router.get('/product', async (request, response, next) => {
     const {q} =  request.query;
 
     await controller.getDynamicProduct(q)
-        .then((data) => response.send({data}))
+        .then((data) => response.send(data))
         .catch((err) => next(new ErrorHandler(err)));
 });
 
