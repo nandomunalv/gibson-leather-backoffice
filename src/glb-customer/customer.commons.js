@@ -8,8 +8,7 @@ const arrValidation = (type, arr) => {
     }
     let arrResponse = [];
     for (let i = 0; newArr.length > i; i++) {
-        const data = databaseForWebTransform(newArr[i]);
-        arrResponse.push(data);
+        arrResponse.push(newArr[i]);
     }
     return arrResponse;
 }
@@ -35,7 +34,7 @@ const webForDatabaseTransform = (payload) => {
 
 const databaseForWebTransform = (payload) => {
     return {
-        customerId: payload.customer_id,
+        id: payload.customer_id,
         documentType: payload.document_type,
         documentNumber: payload.document_number,
         name: payload.name,
