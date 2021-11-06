@@ -1,8 +1,5 @@
 const database = require('./customer.dao');
-const {
-    arrValidation,
-    databaseForWebTransform
-} = require('./customer.commons');
+const {arrValidation} = require('./customer.commons');
 
 module.exports.searchCustomers = async () => {
     return await database.findCustomers();
@@ -10,7 +7,7 @@ module.exports.searchCustomers = async () => {
 
 module.exports.searchCustomer = async (documentNumber) => {
     const result = await database.findByDocumentNumber(documentNumber);
-    return databaseForWebTransform(result[0]);
+    return arrValidation(1, result);
 }
 
 module.exports.searchDynamicCustomer = async (word) => {

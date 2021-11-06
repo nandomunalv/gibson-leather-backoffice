@@ -1,38 +1,29 @@
 const service = require('./product.service');
 const {transformWebToDatabase} = require('./product.commons');
 
-const getProducts = async () => {
+module.exports.getProducts = async () => {
     return await service.searchProducts();
 }
 
-const getProduct = async (sku) => {
+module.exports.getProduct = async (sku) => {
     return await service.searchProduct(sku);
 }
 
-const getDynamicProduct = async (word) => {
+module.exports.getDynamicProduct = async (word) => {
     return await service.searchDynamicProduct(word);
 }
 
-const createProduct = async (payload) => {
+module.exports.createProduct = async (payload) => {
     const cleanPayload = transformWebToDatabase(payload);
     return await service.addProduct(cleanPayload);
 }
 
-const editProduct = async (identifier, payload) => {
+module.exports.editProduct = async (identifier, payload) => {
     const cleanPayload = transformWebToDatabase(payload);
     return await service.updateProduct(identifier, cleanPayload);
     
 }
 
-const removeProduct = async (identifier) => {
+module.exports.removeProduct = async (identifier) => {
     return await service.disableProduct(identifier);
-}
-
-module.exports = {
-    getProducts,
-    getProduct,
-    getDynamicProduct,
-    createProduct,
-    editProduct,
-    removeProduct
 }

@@ -1,42 +1,31 @@
 const database = require('./product.dao');
 const helpers = require('./product.commons');
 
-const searchProducts = async () => {
-    const result = await database.findProducts();
-    return helpers.addProductsToList(result);
+module.exports.searchProducts = async () => {
+    return await database.findProducts();
 };
 
-const searchProduct = async (sku) => {
-    const result = await database.findOneProductBySku(sku);
+module.exports.searchProduct = async (sku) => {
+    const result = await database.findBySku(sku);
     return helpers.addProductsToList(result[0]);
 };
 
-const searchDynamicProduct = async (word) => {
-    const result = await database.findDynamicProduct(word);
-    result.pop();
+module.exports.searchDynamicProduct = async (word) => {
+    const result = await database.dynamicSearch(word);
     return helpers.addProductsToList(result[0]);
 };
 
-const addProduct = async (payload) => {
-    const dbResp = await database.insertProduct(payload);
-    return dbResp.insertId;
+module.exports.addProduct = async (payload) => {
+    const result = await database.save(payload);
+    return result.insertId;
 };
 
-const updateProduct = async (identifier, payload) => {
-    const dbResp = await database.updateProductDataById(identifier, payload);
-    return dbResp.changedRows;
+module.exports.updateProduct = async (identifier, payload) => {
+    const result = await database.updateById(identifier, payload);
+    return result.changedRows;
 };
 
-const disableProduct = async (identifier) => {
-    const dbResp = await database.updateProductStatus(identifier);
-    return dbResp.changedRows;
+module.exports.disableProduct = async (identifier) => {
+    const result = await database.disable(identifier);
+    return result.changedRows;
 };
-
-module.exports = {
-    searchProducts,
-    searchProduct,
-    searchDynamicProduct,
-    addProduct,
-    updateProduct,
-    disableProduct
-}

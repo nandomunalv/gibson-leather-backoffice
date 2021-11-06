@@ -32,27 +32,7 @@ const webForDatabaseTransform = (payload) => {
     }
 }
 
-const databaseForWebTransform = (payload) => {
-    return {
-        id: payload.customer_id,
-        documentType: payload.document_type,
-        documentNumber: payload.document_number,
-        name: payload.name,
-        lastName: payload.last_name,
-        email: payload.email,
-        phoneNumber: payload.phone_number,
-        mainAddress: payload.main_address,
-        referenceAddress: payload.reference_address,
-        referenceOlvaCourier: payload.reference_olva_courier,
-        ubigeoCountry: payload.ubigeo_country,
-        ubigeoDepartment: payload.ubigeo_department,
-        ubigeoProvince: payload.ubigeo_province,
-        ubigeoDistrict: payload.ubigeo_district
-    }
-}
-
 module.exports = {
     arrValidation,
-    webForDatabaseTransform,
-    databaseForWebTransform
+    webForDatabaseTransform
 }

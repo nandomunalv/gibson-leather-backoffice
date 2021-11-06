@@ -9,9 +9,9 @@ const generateSKU = (productType, productName, productColor, productGender) => {
 
 const addProductsToList = (resultArr) => {
     let arrResponse = [];
+    resultArr.pop();
     for (let i = 0; resultArr.length > i; i++) {
-        const data = transformDatabaseToWeb(resultArr[i]);
-        arrResponse.push(data);
+        arrResponse.push(resultArr[i]);
     }
     return arrResponse;
 }
@@ -37,30 +37,8 @@ const transformWebToDatabase = (payload) => {
     }
 }
 
-const transformDatabaseToWeb = (payload) => {
-    return {
-        id: payload.product_id,
-        sku: payload.product_sku,
-        type: payload.product_type,
-        name: payload.product_name,
-        description: payload.product_description,
-        details: payload.product_details,
-        price: payload.product_price,
-        color: payload.product_color,
-        gender: payload.product_gender,
-        widthcm: payload.product_width,
-        longcm: payload.product_long,
-        highcm: payload.product_high,
-        weightkg: payload.product_weight,
-        stock: payload.product_stock,
-        imgName: payload.product_img_name,
-        imgUrl: payload.product_img_url,
-    }
-}
-
 module.exports = {
     generateSKU,
     addProductsToList,
-    transformWebToDatabase,
-    transformDatabaseToWeb
+    transformWebToDatabase
 }
