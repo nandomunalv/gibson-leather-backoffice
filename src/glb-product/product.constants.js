@@ -26,7 +26,7 @@ const QUERY_SEARCH_ALL = 'SELECT\n' +
     '\tgmp.product_img_name AS imgName,\n' +
     '\tgmp.product_img_url AS imgUrl,\n' +
     '\tgmp.enabled AS enabled \n' +
-    'FROM glb_mst_products gmp WHERE enabled = 1 LIMIT 15;'
+    'FROM glb_mst_products gmp WHERE enabled = 1 LIMIT 10;'
 
 
 module.exports = {
