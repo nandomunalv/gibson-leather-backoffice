@@ -27,3 +27,8 @@ module.exports.editProduct = async (identifier, payload) => {
 module.exports.removeProduct = async (identifier) => {
     return await service.disableProduct(identifier);
 }
+
+module.exports.getCategories = async () => await service.searchCategories();
+module.exports.createCategory = async (payload) => await service.addCategory(payload);
+module.exports.editCategory = async (identifier, payload) => await service.updateCategory(identifier, payload);
+module.exports.removeCategory = async (identifier) => await service.deleteCategory(identifier);

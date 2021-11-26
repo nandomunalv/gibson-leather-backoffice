@@ -26,6 +26,11 @@ const disable = async (id) => {
     return pool.query(exec.QUERY_DISABLED, [id]);
 };
 
+const findCategories = async () => pool.query(exec.SELECT_CATEGORY);
+const saveCategory = async (data) => pool.query(exec.INSERT_CATEGORY, [data]);
+const updateCategoryById = async (id, data) => pool.query(exec.UPDATE_CATEGORY, [data, id]);
+const deleteCategory = async (id) => pool.query(exec.DELETE_CATEGORY, [id]);
+
 
 module.exports = {
     findProducts,
@@ -33,5 +38,9 @@ module.exports = {
     dynamicSearch,
     save,
     updateById,
-    disable
+    disable,
+    findCategories,
+    saveCategory,
+    updateCategoryById,
+    deleteCategory
 }

@@ -1,13 +1,8 @@
-const QUERY_SEARCH_ONE = 'SELECT * FROM glb_mst_products WHERE product_sku = ?';
-
-const QUERY_INSERT = 'INSERT INTO glb_mst_products SET ?';
-
-const QUERY_UPDATE = 'UPDATE glb_mst_products SET ? WHERE product_id = ?';
-
-const QUERY_DISABLED = 'UPDATE glb_mst_products SET enabled = 0 WHERE product_id = ?';
-
 const SP_SEARCH_DYNAMIC = 'CALL sp_get_dynamic_product(?)';
-
+const QUERY_SEARCH_ONE = 'SELECT * FROM glb_mst_products WHERE product_sku = ?';
+const QUERY_INSERT = 'INSERT INTO glb_mst_products SET ?';
+const QUERY_UPDATE = 'UPDATE glb_mst_products SET ? WHERE product_id = ?';
+const QUERY_DISABLED = 'UPDATE glb_mst_products SET enabled = 0 WHERE product_id = ?';
 const QUERY_SEARCH_ALL = 'SELECT\n' +
     '\tgmp.product_id AS productId,\n' +
     '\tgmp.category_id AS categoryId,\n' +
@@ -26,7 +21,12 @@ const QUERY_SEARCH_ALL = 'SELECT\n' +
     '\tgmp.product_img_name AS imgName,\n' +
     '\tgmp.product_img_url AS imgUrl,\n' +
     '\tgmp.enabled AS enabled \n' +
-    'FROM glb_mst_products gmp WHERE enabled = 1 LIMIT 10;'
+    'FROM glb_mst_products gmp WHERE enabled = 1 LIMIT 10;';
+
+const SELECT_CATEGORY = 'SELECT * FROM glb_mst_categories';
+const INSERT_CATEGORY = 'INSERT INTO glb_mst_categories SET ?';
+const UPDATE_CATEGORY = 'UPDATE glb_mst_categories SET ? WHERE id = ?';
+const DELETE_CATEGORY = 'DELETE FROM glb_mst_categories WHERE id = ?';
 
 
 module.exports = {
@@ -35,5 +35,9 @@ module.exports = {
     QUERY_INSERT,
     QUERY_UPDATE,
     QUERY_DISABLED,
-    SP_SEARCH_DYNAMIC
+    SP_SEARCH_DYNAMIC,
+    SELECT_CATEGORY,
+    INSERT_CATEGORY,
+    UPDATE_CATEGORY,
+    DELETE_CATEGORY
 }
