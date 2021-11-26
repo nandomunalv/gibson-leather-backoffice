@@ -1,5 +1,5 @@
 const service = require('./product.service');
-const {transformWebToDatabase} = require('./product.commons');
+const {dataForInsert, dataForUpdate} = require('./product.commons');
 
 module.exports.getProducts = async () => {
     return await service.searchProducts();
@@ -14,12 +14,14 @@ module.exports.getDynamicProduct = async (word) => {
 }
 
 module.exports.createProduct = async (payload) => {
-    const cleanPayload = transformWebToDatabase(payload);
+    console.log(payload);
+    const cleanPayload = dataForInsert(payload);
+    console.log(cleanPayload);
     return await service.addProduct(cleanPayload);
 }
 
 module.exports.editProduct = async (identifier, payload) => {
-    const cleanPayload = transformWebToDatabase(payload);
+    const cleanPayload = dataForUpdate(payload);
     return await service.updateProduct(identifier, cleanPayload);
     
 }

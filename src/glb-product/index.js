@@ -4,7 +4,6 @@ const router = express.Router();
 const controller = require('./product.controller');
 
 const {ErrorHandler} = require('./../glb-util/errror');
-const {request} = require("express");
 
 
 router.get('/all', async (request, response, next) => {
@@ -23,6 +22,8 @@ router.get('/product', async (request, response, next) => {
 
 router.post('/product', async (request, response, next) => {
     const payload = request.body;
+
+    console.log(payload)
 
     await controller.createProduct(payload)
         .then((product) => {
