@@ -3,38 +3,35 @@ const exec = require('./customer.constants');
 
 
 const findCustomers = async () => {
-    pool.getConnection((err, con) => {
-        console.log(con);
-    });
     return pool.query(exec.QUERY_SEARCH_ALL);
 }
 
-const findOneCustomerByDocumentNumber = async (documentNumber) => {
+const findByDocumentNumber = async (documentNumber) => {
     return pool.query(exec.QUERY_SEARCH_ONE_CLIENT, [documentNumber]);
 }
 
-const findDynamicCustomer = async (word) => {
+const dynamicSearch = async (word) => {
     return pool.query(exec.SP_SEARCH_DYNAMIC, [word]);
 }
 
-const insertCustomer = async (data) => {
+const save = async (data) => {
     return pool.query(exec.QUERY_INSERT, [data]);
 }
 
-const updateCustomerDataById = async (customerId, data) => {
-    return pool.query(exec.QUERY_UPDATE, [data, customerId]);
+const updateById = async (id, data) => {
+    return pool.query(exec.QUERY_UPDATE, [data, id]);
 }
 
-const updateCustomerStatus = async (customerId) => {
-    return pool.query(exec.QUERY_DISABLED, [customerId]);
+const disable = async (id) => {
+    return pool.query(exec.QUERY_DISABLED, [id]);
 }
 
 
 module.exports = {
     findCustomers,
-    findOneCustomerByDocumentNumber,
-    findDynamicCustomer,
-    insertCustomer,
-    updateCustomerDataById,
-    updateCustomerStatus
+    findByDocumentNumber,
+    dynamicSearch,
+    save,
+    updateById,
+    disable
 }

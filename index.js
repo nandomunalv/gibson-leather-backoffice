@@ -5,6 +5,7 @@ const middlewares = require('./config/server/middlewares');
 const customerModule = require('./src/glb-customer/index');
 const productModule = require('./src/glb-product/index');
 const orderModule = require('./src/glb-order/index');
+const categoryModule = require('./src/glb-category/index');
 
 const app = express();
 
@@ -18,5 +19,6 @@ app.use(...middlewares);
 app.use('/customers/api', customerModule);
 app.use('/products/api', productModule);
 app.use('/orders/api', orderModule);
+app.use('/categories/api', categoryModule);
 
 module.exports = app;

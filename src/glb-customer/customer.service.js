@@ -1,44 +1,31 @@
 const database = require('./customer.dao');
-const {
-    arrValidation,
-    databaseForWebTransform
-} = require('./customer.commons');
+const {arrValidation} = require('./customer.commons');
 
-const searchCustomers = async () => {
-    const result = await database.findCustomers();
-    return arrValidation(0, result);
+module.exports.searchCustomers = async () => {
+    return await database.findCustomers();
 }
 
-const searchCustomer = async (documentNumber) => {
-    const result = await database.findOneCustomerByDocumentNumber(documentNumber);
-    return databaseForWebTransform(result[0]);
-}
-
-const searchDynamicCustomer = async (word) => {
-    const result = await database.findDynamicCustomer(word);
+module.exports.searchCustomer = async (documentNumber) => {
+    const result = await database.findByDocumentNumber(documentNumber);
     return arrValidation(1, result);
 }
 
-const addCustomer = async (payload) => {
-    const dbResp = await database.insertCustomer(payload);
-    return dbResp.insertId;
+module.exports.searchDynamicCustomer = async (word) => {
+    const result = await database.dynamicSearch(word);
+    return arrValidation(1, result);
 }
 
-const updateCustomer = async (identifier, payload) => {
-    const dbResp = await database.updateCustomerDataById(identifier, payload);
-    return dbResp.changedRows;
+module.exports.addCustomer = async (payload) => {
+    const result = await database.save(payload);
+    return result.insertId;
 }
 
-const disableCustomer = async (identifier) => {
-    const dbResp = await database.updateCustomerStatus(identifier);
-    return dbResp.changedRows;
+module.exports.updateCustomer = async (identifier, payload) => {
+    const result = await database.updateById(identifier, payload);
+    return result.changedRows;
 }
 
-module.exports = {
-    searchCustomers,
-    searchCustomer,
-    searchDynamicCustomer,
-    addCustomer,
-    updateCustomer,
-    disableCustomer
+module.exports.disableCustomer = async (identifier) => {
+    const result = await database.disable(identifier);
+    return result.changedRows;
 }

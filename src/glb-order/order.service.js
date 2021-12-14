@@ -24,7 +24,7 @@ const addOrder = async (payload, productsInfo) => {
 
 const setOrderInformation = async (products) => {
     const sku = products.map(item => item.sku);
-    const trackingCode = uuidV4().split('-')[0];
+    const trackingCode = uuidV4().split('-')[0].toUpperCase();
     const productList = `'${sku.join("','")}'`;
 
     const dbResult = await database.findProductsBySku(productList);

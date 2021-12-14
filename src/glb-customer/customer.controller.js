@@ -1,37 +1,28 @@
 const service = require('./customer.service');
 const {webForDatabaseTransform} = require('./customer.commons');
 
-const getCustomers = async () => {
+module.exports.getCustomers = async () => {
     return await service.searchCustomers();
 }
 
-const getCustomer = async (documentNumber) => {
+module.exports.getCustomer = async (documentNumber) => {
     return await service.searchCustomer(documentNumber);
 }
 
-const getDynamicCustomer = async (word) => {
+module.exports.getDynamicCustomer = async (word) => {
     return await service.searchDynamicCustomer(word);
 }
 
-const createCustomer = async (payload) => {
+module.exports.createCustomer = async (payload) => {
     const cleanPayload = webForDatabaseTransform(payload);
     return await service.addCustomer(cleanPayload);
 }
 
-const editCustomer = async (identifier, payload) => {
+module.exports.editCustomer = async (identifier, payload) => {
     const cleanPayload = webForDatabaseTransform(payload);
     return await service.updateCustomer(identifier, cleanPayload);
 }
 
-const removeCustomer = async (identifier) => {
+module.exports.removeCustomer = async (identifier) => {
     return await service.disableCustomer(identifier);
-}
-
-module.exports = {
-    getCustomers,
-    getCustomer,
-    getDynamicCustomer,
-    createCustomer,
-    editCustomer,
-    removeCustomer,
 }

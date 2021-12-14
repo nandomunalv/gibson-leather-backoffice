@@ -6,32 +6,41 @@ const findProducts = async () => {
     return pool.query(exec.QUERY_SEARCH_ALL);
 };
 
-const findOneProductBySku = async (sku) => {
+const findBySku = async (sku) => {
     return pool.query(exec.QUERY_SEARCH_ONE, [sku]);
 };
 
-const findDynamicProduct = async (word) => {
+const dynamicSearch = async (word) => {
     return pool.query(exec.SP_SEARCH_DYNAMIC, [word]);
 };
 
-const insertProduct = async (data) => {
+const save = async (data) => {
     return pool.query(exec.QUERY_INSERT, [data]);
 };
 
-const updateProductDataById = async (productId, data) => {
-    return pool.query(exec.QUERY_UPDATE, [data, productId]);
+const updateById = async (id, data) => {
+    return pool.query(exec.QUERY_UPDATE, [data, id]);
 };
 
-const updateProductStatus = async (productId) => {
-    return pool.query(exec.QUERY_DISABLED, [productId]);
+const disable = async (id) => {
+    return pool.query(exec.QUERY_DISABLED, [id]);
 };
+
+const findCategories = async () => pool.query(exec.SELECT_CATEGORY);
+const saveCategory = async (data) => pool.query(exec.INSERT_CATEGORY, [data]);
+const updateCategoryById = async (id, data) => pool.query(exec.UPDATE_CATEGORY, [data, id]);
+const deleteCategory = async (id) => pool.query(exec.DELETE_CATEGORY, [id]);
 
 
 module.exports = {
     findProducts,
-    findOneProductBySku,
-    findDynamicProduct,
-    insertProduct,
-    updateProductDataById,
-    updateProductStatus
+    findBySku,
+    dynamicSearch,
+    save,
+    updateById,
+    disable,
+    findCategories,
+    saveCategory,
+    updateCategoryById,
+    deleteCategory
 }
