@@ -1,5 +1,5 @@
 const service = require('./customer.service');
-const {webForDatabaseTransform} = require('./customer.commons');
+const {customerMapper} = require("./customer.mapper");
 
 module.exports.getCustomers = async () => {
     return await service.searchCustomers();
@@ -14,13 +14,11 @@ module.exports.getDynamicCustomer = async (word) => {
 }
 
 module.exports.createCustomer = async (payload) => {
-    const cleanPayload = webForDatabaseTransform(payload);
-    return await service.addCustomer(cleanPayload);
+    return await service.addCustomer(customerMapper(payload));
 }
 
 module.exports.editCustomer = async (identifier, payload) => {
-    const cleanPayload = webForDatabaseTransform(payload);
-    return await service.updateCustomer(identifier, cleanPayload);
+    return await service.updateCustomer(identifier, customerMapper(payload));
 }
 
 module.exports.removeCustomer = async (identifier) => {
