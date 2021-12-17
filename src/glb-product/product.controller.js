@@ -1,5 +1,6 @@
 const service = require('./product.service');
-const {dataForInsert, dataForUpdate} = require('./product.commons');
+const {productMapper} = require("./product.mapper");
+const {TYPE_NEW, TYPE_UPDATE} = require("../glb-util/constants");
 
 module.exports.getProducts = async () => {
     return await service.searchProducts();
@@ -14,14 +15,11 @@ module.exports.getDynamicProduct = async (word) => {
 }
 
 module.exports.createProduct = async (payload) => {
-    const cleanPayload = dataForInsert(payload);
-    return await service.addProduct(cleanPayload);
+    return await service.addProduct(productMapper(TYPE_NEW, payload));
 }
 
 module.exports.editProduct = async (identifier, payload) => {
-    const cleanPayload = dataForUpdate(payload);
-    return await service.updateProduct(identifier, cleanPayload);
-    
+    return await service.updateProduct(identifier,productMapper(TYPE_UPDATE, payload));
 }
 
 module.exports.removeProduct = async (identifier) => {
