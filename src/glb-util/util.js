@@ -1,12 +1,14 @@
+const {TYPE_NEW, TYPE_UPDATE} = require("./constants");
+
 module.exports.buildSecurityAuditAttributes = (type) => {
     switch (type) {
-        case 'NEW':
+        case TYPE_NEW:
             return {
                 creation_user: null,
                 creation_date: new Date(),
                 creation_ip: null,
             }
-        case 'UPDATE':
+        case TYPE_UPDATE:
             return {
                 update_user: null,
                 update_date: new Date(),
