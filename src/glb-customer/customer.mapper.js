@@ -18,7 +18,7 @@ module.exports.customerMapper = (type, payload) => {
         ubigeo_department: payload.ubigeoDepartment,
         ubigeo_province: payload.ubigeoProvince,
         ubigeo_district: payload.ubigeoDistrict,
-        enabled: payload.enable,
+        enabled: payload.enabled,
     }
 
     return {

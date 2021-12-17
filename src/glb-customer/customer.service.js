@@ -23,6 +23,6 @@ module.exports.updateCustomer = async (identifier, payload) => {
 }
 
 module.exports.disableCustomer = async (identifier) => {
-    const {affectedRows} = await database.disable(identifier);
-    return affectedRows;
+    const {changedRows} = await database.disable(identifier);
+    return changedRows;
 }

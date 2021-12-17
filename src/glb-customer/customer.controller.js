@@ -1,5 +1,6 @@
 const service = require('./customer.service');
 const {customerMapper} = require("./customer.mapper");
+const {TYPE_NEW, TYPE_UPDATE} = require("../glb-util/constants");
 
 module.exports.getCustomers = async () => {
     return await service.searchCustomers();
@@ -14,11 +15,11 @@ module.exports.getDynamicCustomer = async (word) => {
 }
 
 module.exports.createCustomer = async (payload) => {
-    return await service.addCustomer(customerMapper(payload));
+    return await service.addCustomer(customerMapper(TYPE_NEW, payload));
 }
 
 module.exports.editCustomer = async (identifier, payload) => {
-    return await service.updateCustomer(identifier, customerMapper(payload));
+    return await service.updateCustomer(identifier, customerMapper(TYPE_UPDATE, payload));
 }
 
 module.exports.removeCustomer = async (identifier) => {
